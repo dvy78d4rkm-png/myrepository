@@ -1,15 +1,90 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로또 번호 수정기</title>
 <style>
+:root[data-theme="dark"] {
+    --bg: #130307;
+    --bg-grad1: #8b000055;
+    --bg-grad2: #dc143c44;
+    --bg-grad3: #ff6b3533;
+    --card-bg: rgba(28, 6, 12, .88);
+    --card-border: rgba(220, 20, 60, .18);
+    --card-shadow: 0 0 50px rgba(139,0,0,.35), 0 0 0 1px rgba(255,107,53,.06);
+    --title: #ffffff;
+    --desc: #c9897a;
+    --btn-add-bg: rgba(220,20,60,.1);
+    --btn-add-border: rgba(220,20,60,.25);
+    --btn-add-color: #ffffff;
+    --game-bg: rgba(139,0,0,.08);
+    --game-border: rgba(220,20,60,.15);
+    --label-color: #e8907a;
+    --icon-btn-bg: rgba(220,20,60,.08);
+    --icon-btn-border: rgba(220,20,60,.15);
+    --icon-btn-color: #c9897a;
+    --icon-btn-hover-bg: rgba(220,20,60,.22);
+    --icon-btn-hover-color: #ffcfc5;
+    --icon-del-hover-bg: rgba(139,0,0,.35);
+    --icon-del-hover-color: #ff6b6b;
+    --ball-hover-shadow: rgba(255,107,53,.5);
+    --ball-ring: #ff6b35;
+    --input-bg: rgba(255,255,255,.1);
+    --input-border: rgba(255,255,255,.3);
+    --input-color: #ffffff;
+    --error-color: #ff7070;
+    --toast-bg: linear-gradient(90deg,#8b0000,#dc143c);
+    --toast-shadow: rgba(220,20,60,.4);
+    --toggle-bg: rgba(220,20,60,.12);
+    --toggle-border: rgba(220,20,60,.25);
+    --toggle-color: #e8907a;
+    --toggle-hover: rgba(220,20,60,.22);
+}
+
+:root[data-theme="light"] {
+    --bg: #fff0ea;
+    --bg-grad1: #dc143c22;
+    --bg-grad2: #ff6b3530;
+    --bg-grad3: #8b000018;
+    --card-bg: rgba(255, 250, 248, .96);
+    --card-border: rgba(180, 20, 40, .18);
+    --card-shadow: 0 8px 40px rgba(139,0,0,.12), 0 2px 8px rgba(220,20,60,.08);
+    --title: #2d0a0a;
+    --desc: #a0404a;
+    --btn-add-bg: rgba(220,20,60,.07);
+    --btn-add-border: rgba(180,20,40,.25);
+    --btn-add-color: #8b0020;
+    --game-bg: rgba(255,235,230,.6);
+    --game-border: rgba(180,20,40,.15);
+    --label-color: #b83040;
+    --icon-btn-bg: rgba(220,20,60,.07);
+    --icon-btn-border: rgba(180,20,40,.18);
+    --icon-btn-color: #a03040;
+    --icon-btn-hover-bg: rgba(220,20,60,.15);
+    --icon-btn-hover-color: #6d0018;
+    --icon-del-hover-bg: rgba(139,0,0,.12);
+    --icon-del-hover-color: #c00020;
+    --ball-hover-shadow: rgba(220,20,60,.4);
+    --ball-ring: #dc143c;
+    --input-bg: rgba(255,255,255,.8);
+    --input-border: rgba(180,20,40,.4);
+    --input-color: #2d0a0a;
+    --error-color: #c00020;
+    --toast-bg: linear-gradient(90deg,#dc143c,#ff6b35);
+    --toast-shadow: rgba(220,20,60,.35);
+    --toggle-bg: rgba(220,20,60,.07);
+    --toggle-border: rgba(180,20,40,.2);
+    --toggle-color: #b83040;
+    --toggle-hover: rgba(220,20,60,.15);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
+    transition: background-color .3s, color .3s, border-color .3s, box-shadow .3s;
 }
 
 body {
@@ -19,32 +94,60 @@ body {
     align-items: flex-start;
     padding: 40px 20px;
     background:
-        radial-gradient(circle at 15% 20%, #8b000055, transparent 35%),
-        radial-gradient(circle at 80% 25%, #dc143c44, transparent 35%),
-        radial-gradient(circle at 50% 85%, #ff6b3533, transparent 35%),
-        #130307;
+        radial-gradient(circle at 15% 20%, var(--bg-grad1), transparent 35%),
+        radial-gradient(circle at 80% 25%, var(--bg-grad2), transparent 35%),
+        radial-gradient(circle at 50% 85%, var(--bg-grad3), transparent 35%),
+        var(--bg);
 }
 
 .card {
     width: 560px;
-    background: rgba(28, 6, 12, .88);
+    background: var(--card-bg);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(220, 20, 60, .18);
+    border: 1px solid var(--card-border);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 0 50px rgba(139, 0, 0, .35), 0 0 0 1px rgba(255,107,53,.06);
+    box-shadow: var(--card-shadow);
 }
 
-h1 {
-    color: white;
-    font-size: 26px;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 6px;
 }
 
+h1 {
+    color: var(--title);
+    font-size: 26px;
+}
+
+.theme-toggle {
+    background: var(--toggle-bg);
+    border: 1px solid var(--toggle-border);
+    border-radius: 30px;
+    padding: 6px 14px;
+    cursor: pointer;
+    color: var(--toggle-color);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: .2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    background: var(--toggle-hover);
+}
+
 .desc {
-    color: #c9897a;
+    color: var(--desc);
     font-size: 14px;
     margin-bottom: 24px;
+    margin-top: 6px;
 }
 
 .btn-row {
@@ -70,16 +173,16 @@ h1 {
 }
 
 .btn-add {
-    background: rgba(220, 20, 60, .1);
-    border: 1px solid rgba(220, 20, 60, .25);
+    background: var(--btn-add-bg);
+    border: 1px solid var(--btn-add-border);
+    color: var(--btn-add-color);
 }
 
 .btn:hover {
     transform: translateY(-2px);
-    opacity: .9;
+    opacity: .88;
 }
 
-/* 게임 목록 */
 .game-list {
     display: flex;
     flex-direction: column;
@@ -87,8 +190,8 @@ h1 {
 }
 
 .game-item {
-    background: rgba(139, 0, 0, .08);
-    border: 1px solid rgba(220, 20, 60, .15);
+    background: var(--game-bg);
+    border: 1px solid var(--game-border);
     border-radius: 14px;
     padding: 18px 18px 14px;
     position: relative;
@@ -108,7 +211,7 @@ h1 {
 }
 
 .game-label {
-    color: #e8907a;
+    color: var(--label-color);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: .5px;
@@ -120,10 +223,10 @@ h1 {
 }
 
 .icon-btn {
-    background: rgba(220, 20, 60, .08);
-    border: 1px solid rgba(220, 20, 60, .15);
+    background: var(--icon-btn-bg);
+    border: 1px solid var(--icon-btn-border);
     border-radius: 7px;
-    color: #c9897a;
+    color: var(--icon-btn-color);
     font-size: 13px;
     padding: 4px 9px;
     cursor: pointer;
@@ -131,16 +234,15 @@ h1 {
 }
 
 .icon-btn:hover {
-    background: rgba(220, 20, 60, .22);
-    color: #ffcfc5;
+    background: var(--icon-btn-hover-bg);
+    color: var(--icon-btn-hover-color);
 }
 
 .icon-btn.del:hover {
-    background: rgba(139, 0, 0, .35);
-    color: #ff6b6b;
+    background: var(--icon-del-hover-bg);
+    color: var(--icon-del-hover-color);
 }
 
-/* 공 */
 .balls {
     display: flex;
     gap: 8px;
@@ -168,52 +270,51 @@ h1 {
     transition: .2s;
     user-select: none;
     position: relative;
+    text-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 
 .ball:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 16px rgba(255, 107, 53, .5);
+    box-shadow: 0 0 16px var(--ball-hover-shadow);
 }
 
 .ball.editing {
-    box-shadow: 0 0 0 3px #ff6b35;
+    box-shadow: 0 0 0 3px var(--ball-ring);
     transform: scale(1.12);
 }
 
 .ball-input {
     width: 52px;
     text-align: center;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.3);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
-    color: white;
+    color: var(--input-color);
     font-size: 14px;
     padding: 3px 0;
     outline: none;
 }
 
-/* 에러 메시지 */
 .error-msg {
-    color: #e74c3c;
+    color: var(--error-color);
     font-size: 12px;
     margin-top: 8px;
     min-height: 16px;
 }
 
-/* 공 색상 — 주황/버건디/크림슨 계열 */
-.yellow { background: linear-gradient(135deg, #ff8c00, #ff6b35); }
-.blue   { background: linear-gradient(135deg, #dc143c, #c01230); }
-.red    { background: linear-gradient(135deg, #800020, #6b001a); }
-.gray   { background: linear-gradient(135deg, #b85c38, #8c3a20); }
-.green  { background: linear-gradient(135deg, #a0001e, #7a0018); }
+/* 공 색상 */
+.c-orange  { background: linear-gradient(135deg, #ff8c00, #ff6b35); }
+.c-crimson { background: linear-gradient(135deg, #dc143c, #c01230); }
+.c-burgundy{ background: linear-gradient(135deg, #800020, #6b001a); }
+.c-burnt   { background: linear-gradient(135deg, #b85c38, #8c3a20); }
+.c-darkred { background: linear-gradient(135deg, #a0001e, #7a0018); }
 
-/* 복사 토스트 */
 #toast {
     position: fixed;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: linear-gradient(90deg, #8b0000, #dc143c);
+    background: var(--toast-bg);
     color: white;
     padding: 10px 22px;
     border-radius: 30px;
@@ -222,7 +323,7 @@ h1 {
     opacity: 0;
     transition: .3s;
     pointer-events: none;
-    box-shadow: 0 4px 20px rgba(220, 20, 60, .4);
+    box-shadow: 0 4px 20px var(--toast-shadow);
 }
 
 #toast.show {
@@ -234,7 +335,12 @@ h1 {
 <body>
 
 <div class="card">
-    <h1>✏️ 로또 번호 수정기</h1>
+    <div class="card-header">
+        <h1>✏️ 로또 번호 수정기</h1>
+        <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+            🌙 다크 모드
+        </button>
+    </div>
     <p class="desc">번호를 클릭하면 직접 수정할 수 있습니다. 범위: 1~45, 중복 불가</p>
 
     <div class="btn-row">
@@ -251,12 +357,29 @@ h1 {
 let games = [];
 let gameCount = 0;
 
+/* 테마 */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const saved = localStorage.getItem('theme') || 'dark';
+setTheme(saved);
+
+function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+    themeBtn.textContent = t === 'dark' ? '☀️ 라이트 모드' : '🌙 다크 모드';
+}
+
+function toggleTheme() {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+
+/* 번호 색상 */
 function getColor(n) {
-    if (n <= 10) return 'yellow';
-    if (n <= 20) return 'blue';
-    if (n <= 30) return 'red';
-    if (n <= 40) return 'gray';
-    return 'green';
+    if (n <= 10) return 'c-orange';
+    if (n <= 20) return 'c-crimson';
+    if (n <= 30) return 'c-burgundy';
+    if (n <= 40) return 'c-burnt';
+    return 'c-darkred';
 }
 
 function randomNums() {
@@ -279,15 +402,12 @@ function addGame(isRandom) {
 function renderGame(id) {
     const game = games.find(g => g.id === id);
     const list = document.getElementById('gameList');
-
-    // 기존 항목 제거 후 재생성
     const old = document.getElementById('game-' + id);
     if (old) old.remove();
 
     const item = document.createElement('div');
     item.className = 'game-item';
     item.id = 'game-' + id;
-
     item.innerHTML = `
         <div class="game-header">
             <span class="game-label">게임 ${id}</span>
@@ -303,12 +423,11 @@ function renderGame(id) {
         </div>
         <div class="error-msg" id="err-${id}"></div>
     `;
-
     list.appendChild(item);
 }
 
 function ballHTML(gameId, idx, num) {
-    const color = num >= 1 && num <= 45 ? getColor(num) : 'gray';
+    const color = num >= 1 && num <= 45 ? getColor(num) : 'c-burnt';
     const label = num > 0 ? num : '?';
     return `
         <div class="ball-wrap" id="wrap-${gameId}-${idx}">
@@ -322,16 +441,14 @@ function startEdit(gameId, idx) {
     const game = games.find(g => g.id === gameId);
     const ballEl = document.getElementById(`ball-${gameId}-${idx}`);
     const wrap = document.getElementById(`wrap-${gameId}-${idx}`);
-
-    if (wrap.querySelector('input')) return; // 이미 편집 중
+    if (wrap.querySelector('input')) return;
 
     ballEl.classList.add('editing');
 
     const input = document.createElement('input');
     input.type = 'number';
     input.className = 'ball-input';
-    input.min = 1;
-    input.max = 45;
+    input.min = 1; input.max = 45;
     input.value = game.nums[idx] > 0 ? game.nums[idx] : '';
     input.placeholder = '1-45';
     wrap.appendChild(input);
@@ -344,16 +461,12 @@ function startEdit(gameId, idx) {
 
         if (!val || val < 1 || val > 45) {
             errEl.textContent = '1~45 사이의 숫자를 입력하세요.';
-            input.remove();
-            ballEl.classList.remove('editing');
+            input.remove(); ballEl.classList.remove('editing');
             return;
         }
-
-        const dup = game.nums.some((n, i) => n === val && i !== idx);
-        if (dup) {
+        if (game.nums.some((n, i) => n === val && i !== idx)) {
             errEl.textContent = `${val}은(는) 이미 있는 번호입니다.`;
-            input.remove();
-            ballEl.classList.remove('editing');
+            input.remove(); ballEl.classList.remove('editing');
             return;
         }
 
@@ -367,10 +480,7 @@ function startEdit(gameId, idx) {
 
     input.addEventListener('keydown', e => {
         if (e.key === 'Enter') commit();
-        if (e.key === 'Escape') {
-            input.remove();
-            ballEl.classList.remove('editing');
-        }
+        if (e.key === 'Escape') { input.remove(); ballEl.classList.remove('editing'); }
     });
     input.addEventListener('blur', commit);
 }
@@ -378,16 +488,16 @@ function startEdit(gameId, idx) {
 function refreshGame(id) {
     const game = games.find(g => g.id === id);
     game.nums = randomNums();
-    const ballsEl = document.getElementById('balls-' + id);
-    ballsEl.innerHTML = game.nums.map((n, i) => ballHTML(id, i, n)).join('');
+    document.getElementById('balls-' + id).innerHTML =
+        game.nums.map((n, i) => ballHTML(id, i, n)).join('');
     document.getElementById('err-' + id).textContent = '';
 }
 
 function sortGame(id) {
     const game = games.find(g => g.id === id);
     game.nums.sort((a, b) => a - b);
-    const ballsEl = document.getElementById('balls-' + id);
-    ballsEl.innerHTML = game.nums.map((n, i) => ballHTML(id, i, n)).join('');
+    document.getElementById('balls-' + id).innerHTML =
+        game.nums.map((n, i) => ballHTML(id, i, n)).join('');
 }
 
 function deleteGame(id) {
@@ -397,8 +507,7 @@ function deleteGame(id) {
 }
 
 function copyGame(id) {
-    const game = games.find(g => g.id === id);
-    const text = game.nums.join(', ');
+    const text = games.find(g => g.id === id).nums.join(', ');
     navigator.clipboard.writeText(text).then(() => {
         const toast = document.getElementById('toast');
         toast.textContent = `복사 완료: ${text}`;
@@ -407,7 +516,6 @@ function copyGame(id) {
     });
 }
 
-// 시작 시 랜덤 게임 1개 추가
 addGame(true);
 </script>
 </body>
