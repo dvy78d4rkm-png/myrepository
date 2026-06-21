@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>제휴 문의</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;
+  background:radial-gradient(circle at 20% 20%,#8b000040,transparent 40%),
+             radial-gradient(circle at 80% 80%,#dc143c30,transparent 40%),#130307}
+.card{width:100%;max-width:480px;background:rgba(28,6,12,.9);border:1px solid rgba(220,20,60,.2);
+  border-radius:20px;padding:36px;box-shadow:0 0 50px rgba(139,0,0,.3)}
+h1{color:#fff;font-size:22px;margin-bottom:6px}
+.sub{color:#c9897a;font-size:13px;margin-bottom:28px}
+label{display:block;color:#e8907a;font-size:13px;font-weight:600;margin-bottom:6px}
+input,textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(220,20,60,.25);
+  border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;
+  transition:.2s;margin-bottom:18px}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3)}
+input:focus,textarea:focus{border-color:rgba(220,20,60,.6);background:rgba(255,255,255,.1)}
+textarea{resize:vertical;min-height:120px;font-family:inherit}
+button{width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;font-size:15px;
+  font-weight:bold;color:#fff;background:linear-gradient(90deg,#8b0000,#dc143c,#ff6b35);
+  transition:.2s}
+button:hover{opacity:.85;transform:translateY(-1px)}
+.msg{text-align:center;margin-top:16px;font-size:13px;color:#c9897a;display:none}
+.comments-wrap{width:100%;max-width:480px;margin:32px auto 40px;padding:0 20px}
+#disqus_thread a{color:#dc143c}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🤝 제휴 문의</h1>
+  <p class="sub">제휴 및 협업 관련 문의를 남겨주세요. 빠르게 답변드립니다.</p>
+
+  <form action="https://formspree.io/f/xbdvrkqk" method="POST" onsubmit="onSubmit(event)">
+    <label>이름 *</label>
+    <input type="text" name="name" placeholder="홍길동" required>
+
+    <label>이메일 *</label>
+    <input type="email" name="email" placeholder="example@email.com" required>
+
+    <label>회사 / 채널명</label>
+    <input type="text" name="company" placeholder="선택 입력">
+
+    <label>문의 내용 *</label>
+    <textarea name="message" placeholder="제휴 목적, 규모, 원하시는 내용 등을 자유롭게 적어주세요." required></textarea>
+
+    <input type="hidden" name="_subject" value="[제휴문의] 새 문의가 도착했습니다">
+    <input type="hidden" name="_language" value="ko">
+
+    <button type="submit">문의 보내기 →</button>
+  </form>
+
+  <p class="msg" id="msg">✅ 문의가 전송되었습니다. 감사합니다!</p>
+</div>
+
+<div class="comments-wrap">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+function onSubmit(e){
+  // Formspree는 기본 POST 제출로 작동 — JS 없이도 됨
+  // 아래는 페이지 이동 없이 인라인 성공 메시지를 보여주는 선택적 처리
+  e.preventDefault();
+  const form=e.target;
+  fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}})
+    .then(r=>{
+      if(r.ok){form.reset();document.getElementById('msg').style.display='block'}
+      else alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.')
+    })
+    .catch(()=>alert('네트워크 오류가 발생했습니다.'))
+}
+</script>
+
+<script>
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://productbuilder-jhcomu6lg0.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</body>
+</html>
