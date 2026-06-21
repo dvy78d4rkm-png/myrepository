@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config *)",
+      "Bash(git credential-osxkeychain *)",
+      "Bash(git -C /Users/yagnwhy1204/Desktop/코딩 add index.html)",
+      "Bash(git -C /Users/yagnwhy1204/Desktop/코딩 commit -m \"feat: add dark/light mode toggle with localStorage persistence\")",
+      "Bash(git -C /Users/yagnwhy1204/Desktop/코딩 push -u origin main)",
+      "Bash(git -C /Users/yagnwhy1204/Desktop/코딩 pull origin main --rebase)"
+    ]
+  }
+}
