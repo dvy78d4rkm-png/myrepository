@@ -2,86 +2,126 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>제휴 문의</title>
+<meta name="description" content="SkyFind 제휴 문의 - 광고, 파트너십, 협업 관련 문의를 남겨주세요.">
+<title>제휴 문의 | SkyFind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;
-  background:radial-gradient(circle at 20% 20%,#8b000040,transparent 40%),
-             radial-gradient(circle at 80% 80%,#dc143c30,transparent 40%),#130307}
-.card{width:100%;max-width:480px;background:rgba(28,6,12,.9);border:1px solid rgba(220,20,60,.2);
-  border-radius:20px;padding:36px;box-shadow:0 0 50px rgba(139,0,0,.3)}
-h1{color:#fff;font-size:22px;margin-bottom:6px}
-.sub{color:#c9897a;font-size:13px;margin-bottom:28px}
-label{display:block;color:#e8907a;font-size:13px;font-weight:600;margin-bottom:6px}
-input,textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(220,20,60,.25);
-  border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;
-  transition:.2s;margin-bottom:18px}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3)}
-input:focus,textarea:focus{border-color:rgba(220,20,60,.6);background:rgba(255,255,255,.1)}
+body{background:#060d1f;color:#fff;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:99;backdrop-filter:blur(10px)}
+.logo{font-size:20px;font-weight:800;text-decoration:none;color:#fff}
+.logo span{color:#3b9eff}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;margin-left:24px;transition:.2s}
+.nav-links a:hover{color:#fff}
+.hero{padding:56px 20px 40px;text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(59,158,255,.14),transparent 60%)}
+.hero h1{font-size:clamp(22px,4vw,36px);font-weight:800;margin-bottom:10px}
+.hero p{color:rgba(255,255,255,.5);font-size:14px}
+.wrap{max-width:520px;margin:48px auto 80px;padding:0 20px}
+.form-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:32px}
+label{display:block;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.4px;text-transform:uppercase;margin-bottom:6px}
+input,textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;transition:.2s;margin-bottom:18px}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.25)}
+input:focus,textarea:focus{border-color:#3b9eff;background:rgba(59,158,255,.06)}
 textarea{resize:vertical;min-height:120px;font-family:inherit}
-button{width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;font-size:15px;
-  font-weight:bold;color:#fff;background:linear-gradient(90deg,#8b0000,#dc143c,#ff6b35);
-  transition:.2s}
-button:hover{opacity:.85;transform:translateY(-1px)}
-.msg{text-align:center;margin-top:16px;font-size:13px;color:#c9897a;display:none}
-.comments-wrap{width:100%;max-width:480px;margin:32px auto 40px;padding:0 20px}
-#disqus_thread a{color:#dc143c}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;font-size:15px;
+  font-weight:700;color:#fff;background:linear-gradient(90deg,#1a6fd4,#3b9eff);transition:.2s}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.ok{text-align:center;color:#3b9eff;font-size:13px;margin-top:16px;display:none}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+footer{border-top:1px solid rgba(255,255,255,.07);padding:28px 40px;text-align:center}
+.footer-links a{color:rgba(255,255,255,.45);text-decoration:none;font-size:13px;margin:0 10px;transition:.2s}
+.footer-links a:hover{color:#3b9eff}
+.footer-copy{color:rgba(255,255,255,.25);font-size:12px;margin-top:10px}
+
+/* Disqus */
+.disqus-wrap{max-width:680px;margin:0 auto 64px;padding:0 20px}
+.disqus-wrap h2{font-size:20px;font-weight:700;margin-bottom:18px}
+hr.div{max-width:760px;margin:0 auto;border:none;border-top:1px solid rgba(255,255,255,.07)}
+
+@media(max-width:600px){nav{padding:14px 18px}.nav-links a{display:none}.info-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="card">
+
+<nav>
+  <a class="logo" href="/">✈️ Sky<span>Find</span></a>
+  <div class="nav-links">
+    <a href="/">항공권 검색</a>
+    <a href="/#tips">예약 꿀팁</a>
+    <a href="/#faq">FAQ</a>
+    <a href="about.html">소개</a>
+  </div>
+</nav>
+
+<div class="hero">
   <h1>🤝 제휴 문의</h1>
-  <p class="sub">제휴 및 협업 관련 문의를 남겨주세요. 빠르게 답변드립니다.</p>
-
-  <form action="https://formspree.io/f/xbdvrkqk" method="POST" onsubmit="onSubmit(event)">
-    <label>이름 *</label>
-    <input type="text" name="name" placeholder="홍길동" required>
-
-    <label>이메일 *</label>
-    <input type="email" name="email" placeholder="example@email.com" required>
-
-    <label>회사 / 채널명</label>
-    <input type="text" name="company" placeholder="선택 입력">
-
-    <label>문의 내용 *</label>
-    <textarea name="message" placeholder="제휴 목적, 규모, 원하시는 내용 등을 자유롭게 적어주세요." required></textarea>
-
-    <input type="hidden" name="_subject" value="[제휴문의] 새 문의가 도착했습니다">
-    <input type="hidden" name="_language" value="ko">
-
-    <button type="submit">문의 보내기 →</button>
-  </form>
-
-  <p class="msg" id="msg">✅ 문의가 전송되었습니다. 감사합니다!</p>
+  <p>광고·파트너십·협업 관련 문의를 남겨주세요. 영업일 기준 1~3일 내로 답변드립니다.</p>
 </div>
 
-<div class="comments-wrap">
+<div class="wrap">
+  <div class="form-card">
+    <form action="https://formspree.io/f/xbdvrkqk" method="POST" onsubmit="onSubmit(event)">
+      <div class="info-row">
+        <div>
+          <label>이름 *</label>
+          <input type="text" name="name" placeholder="홍길동" required>
+        </div>
+        <div>
+          <label>이메일 *</label>
+          <input type="email" name="email" placeholder="example@email.com" required>
+        </div>
+      </div>
+      <label>회사 / 채널명</label>
+      <input type="text" name="company" placeholder="선택 입력">
+      <label>문의 내용 *</label>
+      <textarea name="message" placeholder="제휴 목적, 규모, 원하시는 내용 등을 자유롭게 적어주세요." required></textarea>
+      <input type="hidden" name="_subject" value="[제휴문의] SkyFind 새 문의">
+      <input type="hidden" name="_language" value="ko">
+      <button class="btn" type="submit">문의 보내기 →</button>
+    </form>
+    <p class="ok" id="ok">✅ 문의가 전송되었습니다. 감사합니다!</p>
+  </div>
+</div>
+
+<hr class="div">
+
+<div class="disqus-wrap" style="margin-top:48px">
+  <h2>💬 댓글</h2>
   <div id="disqus_thread"></div>
 </div>
 
+<footer>
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <a href="contact.html">제휴 문의</a>
+  </div>
+  <div class="footer-copy">© 2026 SkyFind. All rights reserved.</div>
+</footer>
+
 <script>
 function onSubmit(e){
-  // Formspree는 기본 POST 제출로 작동 — JS 없이도 됨
-  // 아래는 페이지 이동 없이 인라인 성공 메시지를 보여주는 선택적 처리
   e.preventDefault();
   const form=e.target;
   fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}})
     .then(r=>{
-      if(r.ok){form.reset();document.getElementById('msg').style.display='block'}
-      else alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.')
-    })
-    .catch(()=>alert('네트워크 오류가 발생했습니다.'))
+      if(r.ok){form.reset();document.getElementById('ok').style.display='block'}
+      else alert('전송 오류. 다시 시도해주세요.')
+    }).catch(()=>alert('네트워크 오류가 발생했습니다.'))
 }
 </script>
-
 <script>
-(function() {
-  var d = document, s = d.createElement('script');
-  s.src = 'https://productbuilder-jhcomu6lg0.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
+(function(){
+  var d=document,s=d.createElement('script');
+  s.src='https://productbuilder-jhcomu6lg0.disqus.com/embed.js';
+  s.setAttribute('data-timestamp',+new Date());
+  (d.head||d.body).appendChild(s);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<noscript>댓글을 보려면 JavaScript를 활성화해주세요.</noscript>
 </body>
 </html>
