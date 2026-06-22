@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="SkyFind는 전 세계 항공권 최저가 비교 서비스입니다. 출발지와 목적지만 입력하면 실시간으로 최적의 항공권을 찾아드립니다.">
+<title>SkyFind 소개 | 항공권 최저가 검색 서비스</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#060d1f;color:#fff;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:99;backdrop-filter:blur(10px)}
+.logo{font-size:20px;font-weight:800;text-decoration:none;color:#fff}
+.logo span{color:#3b9eff}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;margin-left:24px;transition:.2s}
+.nav-links a:hover{color:#fff}
+.hero{padding:64px 20px 48px;text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(59,158,255,.15),transparent 60%)}
+.hero h1{font-size:clamp(26px,4vw,42px);font-weight:800;margin-bottom:12px}
+.hero h1 span{background:linear-gradient(90deg,#3b9eff,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(255,255,255,.55);font-size:15px;max-width:560px;margin:0 auto}
+.content{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+.block{margin-bottom:48px}
+.block h2{font-size:20px;font-weight:700;margin-bottom:16px;color:#3b9eff}
+.block p{font-size:15px;line-height:1.85;color:rgba(255,255,255,.7);margin-bottom:14px}
+.values{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:8px}
+.val-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px}
+.val-icon{font-size:26px;margin-bottom:10px}
+.val-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.val-body{font-size:13px;line-height:1.7;color:rgba(255,255,255,.55)}
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.step{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px}
+.step-num{background:linear-gradient(135deg,#1a6fd4,#3b9eff);color:#fff;font-weight:800;
+  font-size:15px;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0}
+.step-text h3{font-size:14px;font-weight:700;margin-bottom:5px}
+.step-text p{font-size:13px;line-height:1.7;color:rgba(255,255,255,.6)}
+footer{border-top:1px solid rgba(255,255,255,.07);padding:28px 40px;text-align:center}
+.footer-links a{color:rgba(255,255,255,.45);text-decoration:none;font-size:13px;margin:0 10px;transition:.2s}
+.footer-links a:hover{color:#3b9eff}
+.footer-copy{color:rgba(255,255,255,.25);font-size:12px;margin-top:10px}
+@media(max-width:600px){nav{padding:14px 18px}.nav-links a{display:none}.values{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">✈️ Sky<span>Find</span></a>
+  <div class="nav-links">
+    <a href="/">항공권 검색</a>
+    <a href="/#tips">예약 꿀팁</a>
+    <a href="/#faq">FAQ</a>
+    <a href="contact.html">제휴문의</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>✈️ Sky<span>Find</span>를 소개합니다</h1>
+  <p>더 많은 사람들이 더 저렴하게, 더 스마트하게 여행할 수 있도록 최저가 항공권 검색 서비스를 제공합니다.</p>
+</div>
+
+<div class="content">
+  <div class="block">
+    <h2>SkyFind란?</h2>
+    <p>SkyFind는 전 세계 항공권 가격을 쉽고 빠르게 비교할 수 있는 검색 서비스입니다. 출발지와 목적지, 날짜만 입력하면 Google Flights와 연동하여 실시간으로 최적의 항공권 옵션을 찾아드립니다.</p>
+    <p>복잡한 항공권 검색 과정을 단순화하고, 항공권 예약 꿀팁과 여행지 가이드를 제공하여 여행자들이 현명한 결정을 내릴 수 있도록 돕는 것이 저희의 목표입니다.</p>
+  </div>
+
+  <div class="block">
+    <h2>서비스 핵심 가치</h2>
+    <div class="values">
+      <div class="val-card"><div class="val-icon">💰</div><div class="val-title">최저가 탐색</div><div class="val-body">수백만 개의 항공편 데이터를 실시간으로 비교하여 가장 저렴한 옵션을 제시합니다.</div></div>
+      <div class="val-card"><div class="val-icon">⚡</div><div class="val-title">빠른 검색</div><div class="val-body">복잡한 가입 없이 바로 검색. 3초 안에 원하는 노선의 최저가를 확인하세요.</div></div>
+      <div class="val-card"><div class="val-icon">📱</div><div class="val-title">모바일 최적화</div><div class="val-body">스마트폰, 태블릿, PC 모든 화면에서 편리하게 이용할 수 있습니다.</div></div>
+      <div class="val-card"><div class="val-icon">🛡️</div><div class="val-title">투명한 정보</div><div class="val-body">숨겨진 수수료 없이 실제 가격 정보를 있는 그대로 제공합니다.</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>이용 방법</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><h3>출발지·도착지 입력</h3><p>출발 도시와 목적지를 입력하거나, 인기 노선 카드를 클릭하면 자동으로 채워집니다.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><h3>날짜·인원 설정</h3><p>출발일, 귀국일, 여행 인원, 좌석 클래스를 선택하세요. 왕복·편도 전환도 간단합니다.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><h3>검색 및 예약</h3><p>'항공권 검색' 버튼을 누르면 Google Flights로 연결되어 실시간 최저가를 확인하고 예약할 수 있습니다.</p></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>면책 고지</h2>
+    <p>SkyFind는 항공권 검색 편의를 위해 Google Flights 등 외부 서비스로 연결하는 중개 역할을 하며, 직접 항공권을 판매하거나 예약을 처리하지 않습니다. 실제 예약 및 결제는 연결된 외부 플랫폼에서 이루어지며, 가격은 실시간으로 변동될 수 있습니다.</p>
+    <p>문의 사항이나 제휴 관련 내용은 <a href="contact.html" style="color:#3b9eff">제휴 문의 페이지</a>를 통해 연락해주세요.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <a href="contact.html">제휴 문의</a>
+  </div>
+  <div class="footer-copy">© 2026 SkyFind. All rights reserved.</div>
+</footer>
+</body>
+</html>

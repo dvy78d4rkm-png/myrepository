@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>항공권 검색</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="SkyFind에서 최저가 항공권을 검색하세요. 서울 출발 전 세계 노선, 왕복·편도 실시간 비교. 도쿄, 오사카, 방콕, 싱가포르, 뉴욕 등 인기 노선 최저가 항공권.">
+<meta name="keywords" content="항공권 검색, 최저가 항공권, 해외여행 항공권, 서울 출발, 인천공항, 도쿄 항공권, 방콕 항공권, 싱가포르 항공권, 유럽 항공권">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="SkyFind - 항공권 최저가 검색 | 해외여행 항공권 비교">
+<meta property="og:description" content="전 세계 항공권 최저가를 한 번에 비교하세요. 출발지와 목적지만 입력하면 끝!">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<title>SkyFind - 항공권 최저가 검색 | 해외여행 항공권 비교</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"SkyFind","description":"최저가 항공권 검색 서비스","potentialAction":{"@type":"SearchAction","target":"https://www.google.com/travel/flights?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"항공권을 가장 저렴하게 구매하는 방법은?","acceptedAnswer":{"@type":"Answer","text":"출발 2~3개월 전 예약이 가장 효과적입니다. 화·수요일 출발 항공편이 주말 대비 평균 20~30% 저렴하며, 비수기와 얼리버드 특가를 활용하면 더욱 절약할 수 있습니다."}},{"@type":"Question","name":"왕복과 편도 예약 중 어느 쪽이 저렴한가요?","acceptedAnswer":{"@type":"Answer","text":"대부분의 경우 왕복 예약이 편도 두 장보다 저렴합니다. 특히 유럽·미주 노선은 왕복 운임이 유리하며, 항공사 프로모션도 왕복 기준으로 진행되는 경우가 많습니다."}},{"@type":"Question","name":"저가항공(LCC)과 대형항공사 중 무엇을 선택해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"단거리(3시간 이내) 노선은 LCC가 경제적이지만, 수하물 비용을 반드시 확인해야 합니다. 장거리 노선이나 수하물이 많은 여행이라면 모든 서비스가 포함된 대형항공사가 오히려 합리적일 수 있습니다."}},{"@type":"Question","name":"항공권 예약 후 취소하면 환불되나요?","acceptedAnswer":{"@type":"Answer","text":"운임 조건에 따라 다릅니다. 프로모션 특가 운임은 환불 불가인 경우가 많고, 일반 운임은 수수료를 제하고 환불됩니다. 예약 전 반드시 취소·환불 정책을 확인하세요. 여행자 보험 가입을 통해 불가피한 취소에 대비하는 것을 권장합니다."}},{"@type":"Question","name":"경유편 선택 시 유의할 점은?","acceptedAnswer":{"@type":"Answer","text":"경유편은 직항 대비 30~40% 저렴하지만, 환승 시간이 최소 2시간 이상 확보되어야 합니다. 환승 공항의 입국 요건(무비자 여부)과 수하물 자동 연결 여부도 사전에 확인해야 합니다."}},{"@type":"Question","name":"인천공항과 김포공항 중 어디서 출발하는 게 유리한가요?","acceptedAnswer":{"@type":"Answer","text":"일본·중국 일부 노선은 김포국제공항(GMP)에서 출발하는 편이 도심 접근성이 좋고 가격도 경쟁력 있는 경우가 있습니다. 장거리 국제선은 대부분 인천국제공항(ICN)에서 출발합니다. 두 공항 모두 비교해보는 것을 추천합니다."}}]}
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#060d1f;color:#fff;min-height:100vh}
 
-/* ── 헤더 ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;
-  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;z-index:99;backdrop-filter:blur(10px)}
-.logo{font-size:20px;font-weight:800;letter-spacing:-.3px}
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:99;backdrop-filter:blur(10px)}
+.logo{font-size:20px;font-weight:800;letter-spacing:-.3px;text-decoration:none;color:#fff}
 .logo span{color:#3b9eff}
-nav a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
-nav a:hover{color:#fff}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;margin-left:24px;transition:.2s}
+.nav-links a:hover{color:#fff}
 
-/* ── 히어로 ── */
 .hero{position:relative;padding:70px 20px 60px;text-align:center;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 0%,rgba(59,158,255,.18),transparent 65%),
              radial-gradient(ellipse at 20% 80%,rgba(99,102,241,.15),transparent 50%),#060d1f}
 .hero-inner{position:relative}
-.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.15;margin-bottom:12px}
+.hero h1{font-size:clamp(26px,5vw,50px);font-weight:800;line-height:1.15;margin-bottom:12px}
 .hero h1 span{background:linear-gradient(90deg,#3b9eff,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero p{color:rgba(255,255,255,.55);font-size:15px;margin-bottom:36px}
 
-/* ── 검색 카드 ── */
 .search-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
   border-radius:20px;padding:28px 28px 24px;max-width:720px;margin:0 auto;backdrop-filter:blur(10px)}
 .tab-row{display:flex;gap:6px;margin-bottom:22px}
-.tab{background:none;border:1px solid rgba(255,255,255,.12);border-radius:30px;color:rgba(255,255,255,.5);
-  font-size:13px;padding:5px 16px;cursor:pointer;transition:.2s}
+.tab{background:none;border:1px solid rgba(255,255,255,.12);border-radius:30px;
+  color:rgba(255,255,255,.5);font-size:13px;padding:5px 16px;cursor:pointer;transition:.2s}
 .tab.on{background:#3b9eff;border-color:#3b9eff;color:#fff}
 .row2{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:12px}
-.arrow{color:rgba(255,255,255,.35);font-size:20px;text-align:center}
+.arrow{color:rgba(255,255,255,.35);font-size:22px;text-align:center;cursor:pointer}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px}
 .field{display:flex;flex-direction:column;gap:5px}
 .field label{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase}
@@ -41,30 +53,59 @@ nav a:hover{color:#fff}
   border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;transition:.2s;width:100%}
 .field input::placeholder{color:rgba(255,255,255,.25)}
 .field input:focus,.field select:focus{border-color:#3b9eff;background:rgba(59,158,255,.08)}
-.field select option{background:#0f1c3a;color:#fff}
-.btn-search{width:100%;padding:15px;border:none;border-radius:12px;cursor:pointer;
-  font-size:16px;font-weight:700;color:#fff;
-  background:linear-gradient(90deg,#1a6fd4,#3b9eff,#818cf8);transition:.2s;letter-spacing:.3px}
+.field select option{background:#0f1c3a}
+.btn-search{width:100%;padding:15px;border:none;border-radius:12px;cursor:pointer;font-size:16px;
+  font-weight:700;color:#fff;background:linear-gradient(90deg,#1a6fd4,#3b9eff,#818cf8);transition:.2s}
 .btn-search:hover{opacity:.88;transform:translateY(-1px)}
 
-/* ── 인기 노선 ── */
-.section{max-width:760px;margin:60px auto;padding:0 20px}
-.section h2{font-size:20px;font-weight:700;margin-bottom:18px;color:rgba(255,255,255,.9)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.section{max-width:800px;margin:64px auto;padding:0 20px}
+.section-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.section-sub{color:rgba(255,255,255,.45);font-size:14px;margin-bottom:24px}
+
+/* 인기 노선 */
+.dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .dest-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
   border-radius:14px;padding:18px 14px;cursor:pointer;transition:.2s;text-align:center}
 .dest-card:hover{background:rgba(59,158,255,.1);border-color:rgba(59,158,255,.3);transform:translateY(-2px)}
-.dest-card .flag{font-size:28px;margin-bottom:8px}
+.dest-card .flag{font-size:26px;margin-bottom:8px}
 .dest-card .city{font-size:14px;font-weight:600}
 .dest-card .code{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
 
-/* ── 구분선 ── */
-.divider{max-width:760px;margin:0 auto;border:none;border-top:1px solid rgba(255,255,255,.07)}
+/* 꿀팁 */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.tip-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px}
+.tip-icon{font-size:28px;margin-bottom:10px}
+.tip-title{font-size:15px;font-weight:700;margin-bottom:8px;color:#3b9eff}
+.tip-body{font-size:13px;line-height:1.7;color:rgba(255,255,255,.65)}
 
-/* ── 제휴문의 폼 ── */
-.contact-section{max-width:520px;margin:60px auto;padding:0 20px}
-.contact-section h2{font-size:20px;font-weight:700;margin-bottom:6px}
-.contact-section .sub{color:rgba(255,255,255,.45);font-size:13px;margin-bottom:24px}
+/* 여행지 가이드 */
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.guide-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px}
+.guide-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.guide-flag{font-size:32px}
+.guide-city{font-size:18px;font-weight:700}
+.guide-code{font-size:12px;color:rgba(255,255,255,.4)}
+.guide-body{font-size:13px;line-height:1.75;color:rgba(255,255,255,.65)}
+.guide-tag{display:inline-block;background:rgba(59,158,255,.12);border:1px solid rgba(59,158,255,.25);
+  color:#3b9eff;font-size:11px;border-radius:20px;padding:3px 10px;margin-top:12px;margin-right:4px}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;color:#fff;font-size:15px;font-weight:600;
+  padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q .arr{transition:.3s;color:rgba(255,255,255,.4);font-size:18px}
+.faq-item.open .arr{transform:rotate(180deg);color:#3b9eff}
+.faq-a{display:none;padding:0 20px 18px;font-size:14px;line-height:1.75;color:rgba(255,255,255,.6)}
+.faq-item.open .faq-a{display:block}
+
+/* 구분선 */
+hr.div{max-width:800px;margin:0 auto;border:none;border-top:1px solid rgba(255,255,255,.07)}
+
+/* 제휴문의 */
+.contact-wrap{max-width:520px;margin:64px auto;padding:0 20px}
+.contact-wrap h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.contact-sub{color:rgba(255,255,255,.45);font-size:14px;margin-bottom:24px}
 .form-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px}
 .form-card label{display:block;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.4px;text-transform:uppercase;margin-bottom:5px}
 .form-card input,.form-card textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
@@ -72,33 +113,42 @@ nav a:hover{color:#fff}
 .form-card input::placeholder,.form-card textarea::placeholder{color:rgba(255,255,255,.25)}
 .form-card input:focus,.form-card textarea:focus{border-color:#3b9eff}
 .form-card textarea{resize:vertical;min-height:110px;font-family:inherit}
-.btn-submit{width:100%;padding:13px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;
-  color:#fff;background:linear-gradient(90deg,#1a6fd4,#3b9eff);transition:.2s}
+.btn-submit{width:100%;padding:13px;border:none;border-radius:10px;cursor:pointer;font-size:14px;
+  font-weight:700;color:#fff;background:linear-gradient(90deg,#1a6fd4,#3b9eff);transition:.2s}
 .btn-submit:hover{opacity:.85;transform:translateY(-1px)}
 .ok-msg{text-align:center;color:#3b9eff;font-size:13px;margin-top:14px;display:none}
 
-/* ── Disqus ── */
-.disqus-section{max-width:720px;margin:40px auto 60px;padding:0 20px}
-.disqus-section h2{font-size:20px;font-weight:700;margin-bottom:18px}
+/* Disqus */
+.disqus-wrap{max-width:760px;margin:40px auto 0;padding:0 20px}
+.disqus-wrap h2{font-size:22px;font-weight:700;margin-bottom:18px}
 
-/* ── 반응형 ── */
+/* 푸터 */
+footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 40px 28px;
+  text-align:center}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 20px;margin-bottom:16px}
+.footer-links a{color:rgba(255,255,255,.45);text-decoration:none;font-size:13px;transition:.2s}
+.footer-links a:hover{color:#3b9eff}
+.footer-copy{color:rgba(255,255,255,.25);font-size:12px}
+
 @media(max-width:600px){
-  nav{padding:14px 18px}
-  nav a{display:none}
-  .row2{grid-template-columns:1fr;}.arrow{display:none}
+  nav{padding:14px 18px}.nav-links a{display:none}
+  .row2{grid-template-columns:1fr}.arrow{display:none}
   .row3{grid-template-columns:1fr 1fr}
-  .hero{padding:50px 16px 40px}
+  .tips-grid,.guide-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">✈️ Sky<span>Find</span></div>
-  <div>
-    <a href="#search">검색</a>
-    <a href="#contact">제휴문의</a>
-    <a href="#comments">댓글</a>
+  <a class="logo" href="/">✈️ Sky<span>Find</span></a>
+  <div class="nav-links">
+    <a href="#search">항공권 검색</a>
+    <a href="#tips">예약 꿀팁</a>
+    <a href="#guide">여행지 가이드</a>
+    <a href="#faq">FAQ</a>
+    <a href="about.html">소개</a>
+    <a href="contact.html">제휴문의</a>
   </div>
 </nav>
 
@@ -106,56 +156,27 @@ nav a:hover{color:#fff}
 <section class="hero" id="search">
   <div class="hero-inner">
     <h1>어디로 떠나시나요?<br><span>최저가 항공권을 찾아드립니다</span></h1>
-    <p>출발지와 목적지를 입력하면 Google Flights에서 최적 결과를 보여드립니다</p>
-
+    <p>출발지와 목적지를 입력하면 Google Flights에서 실시간 최저가를 비교해드립니다</p>
     <div class="search-card">
       <div class="tab-row">
         <button class="tab on" onclick="setTrip('round',this)">왕복</button>
-        <button class="tab"    onclick="setTrip('one',this)">편도</button>
+        <button class="tab" onclick="setTrip('one',this)">편도</button>
       </div>
-
       <div class="row2">
-        <div class="field">
-          <label>출발지</label>
-          <input id="from" type="text" placeholder="서울 (ICN)">
-        </div>
-        <div class="arrow" onclick="swapCities()" style="cursor:pointer;font-size:22px">⇄</div>
-        <div class="field">
-          <label>도착지</label>
-          <input id="to" type="text" placeholder="도쿄 (NRT)">
-        </div>
+        <div class="field"><label>출발지</label><input id="from" type="text" placeholder="서울 (ICN)"></div>
+        <div class="arrow" onclick="swapCities()">⇄</div>
+        <div class="field"><label>도착지</label><input id="to" type="text" placeholder="도쿄 (NRT)"></div>
       </div>
-
       <div class="row3">
-        <div class="field">
-          <label>출발일</label>
-          <input id="dep" type="date">
-        </div>
-        <div class="field" id="retField">
-          <label>귀국일</label>
-          <input id="ret" type="date">
-        </div>
-        <div class="field">
-          <label>인원</label>
-          <select id="pax">
-            <option>성인 1명</option>
-            <option>성인 2명</option>
-            <option>성인 3명</option>
-            <option>성인 4명</option>
-          </select>
+        <div class="field"><label>출발일</label><input id="dep" type="date"></div>
+        <div class="field" id="retField"><label>귀국일</label><input id="ret" type="date"></div>
+        <div class="field"><label>인원</label>
+          <select id="pax"><option>성인 1명</option><option>성인 2명</option><option>성인 3명</option><option>성인 4명</option></select>
         </div>
       </div>
-
-      <div class="field" style="margin-bottom:18px">
-        <label>좌석 클래스</label>
-        <select id="cabin">
-          <option value="1">이코노미</option>
-          <option value="2">프리미엄 이코노미</option>
-          <option value="3">비즈니스</option>
-          <option value="4">퍼스트</option>
-        </select>
+      <div class="field" style="margin-bottom:18px"><label>좌석 클래스</label>
+        <select id="cabin"><option value="1">이코노미</option><option value="2">프리미엄 이코노미</option><option value="3">비즈니스</option><option value="4">퍼스트</option></select>
       </div>
-
       <button class="btn-search" onclick="doSearch()">🔍 항공권 검색</button>
     </div>
   </div>
@@ -163,8 +184,9 @@ nav a:hover{color:#fff}
 
 <!-- 인기 노선 -->
 <div class="section">
-  <h2>✈️ 인기 노선</h2>
-  <div class="cards">
+  <div class="section-title">✈️ 인기 노선</div>
+  <div class="section-sub">클릭하면 자동으로 목적지가 입력됩니다</div>
+  <div class="dest-grid">
     <div class="dest-card" onclick="fillDest('도쿄','NRT')"><div class="flag">🇯🇵</div><div class="city">도쿄</div><div class="code">NRT</div></div>
     <div class="dest-card" onclick="fillDest('오사카','KIX')"><div class="flag">🇯🇵</div><div class="city">오사카</div><div class="code">KIX</div></div>
     <div class="dest-card" onclick="fillDest('방콕','BKK')"><div class="flag">🇹🇭</div><div class="city">방콕</div><div class="code">BKK</div></div>
@@ -176,12 +198,128 @@ nav a:hover{color:#fff}
   </div>
 </div>
 
-<hr class="divider">
+<hr class="div">
+
+<!-- 항공권 예약 꿀팁 -->
+<div class="section" id="tips">
+  <div class="section-title">💡 항공권 예약 꿀팁</div>
+  <div class="section-sub">수십만 원을 아끼는 스마트한 예약 전략</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">📅</div>
+      <div class="tip-title">2~3개월 전 예약이 황금 타이밍</div>
+      <div class="tip-body">대부분의 항공사는 출발 60~90일 전에 얼리버드 특가를 출시합니다. 너무 일찍(6개월 이상) 예약하면 가격 변동 폭이 크고, 너무 늦으면(1개월 이내) 좌석 부족으로 요금이 치솟습니다. 2~3개월 전이 가격과 일정 유연성을 모두 잡는 최적의 타이밍입니다.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📆</div>
+      <div class="tip-title">화·수요일 출발이 가장 저렴</div>
+      <div class="tip-body">출발 요일만 바꿔도 20~30% 절약이 가능합니다. 화요일과 수요일은 여행 수요가 적어 항공사들이 가격을 낮추는 경향이 있습니다. 반대로 금요일 저녁, 토요일 오전 항공편은 성수기 수요로 가격이 높게 형성됩니다. 일정이 유연하다면 출발 요일만 조정해도 큰 절약이 가능합니다.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🔔</div>
+      <div class="tip-title">항공사 프로모션 알림 구독</div>
+      <div class="tip-body">대한항공, 아시아나, 제주항공, 에어서울, 티웨이항공 등 주요 항공사의 앱 알림과 이메일 뉴스레터를 구독하세요. 연 1~2회 진행하는 대규모 프로모션은 정가 대비 최대 50% 할인을 제공합니다. 특히 신규 노선 취항 시 초특가 이벤트를 진행하는 경우가 많습니다.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🔀</div>
+      <div class="tip-title">경유편으로 30~40% 절약</div>
+      <div class="tip-body">직항보다 경유 항공편이 평균 30~40% 저렴합니다. 환승 대기 시간이 3~5시간이라면 공항 라운지를 이용하거나 도심 투어로 일정을 알차게 채울 수 있습니다. 단, 환승 최소 연결 시간(MCT)을 반드시 확인하고 최소 2시간 이상 여유를 두어야 다음 항공편을 안전하게 탑승할 수 있습니다.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🧳</div>
+      <div class="tip-title">수하물 정책 반드시 확인</div>
+      <div class="tip-body">저가 항공사(LCC)는 기본 운임에 수하물이 포함되지 않는 경우가 많아 실제 부담 금액이 달라질 수 있습니다. 위탁 수하물 추가 비용이 항공권 가격의 20~30%를 차지하기도 합니다. 예약 시 수하물을 함께 구매하면 공항에서 추가하는 것보다 저렴하며, 기내 반입 수하물 규정도 미리 숙지하세요.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🏙️</div>
+      <div class="tip-title">인근 공항까지 비교하기</div>
+      <div class="tip-body">서울 출발 시 인천국제공항(ICN) 외에 김포국제공항(GMP)도 확인해보세요. 일부 일본·중국 단거리 노선은 김포에서 출발하는 편이 접근성도 좋고 가격도 유리합니다. 도착지 역시 파리(CDG·ORY), 런던(LHR·LGW), 도쿄(NRT·HND) 등 복수의 공항을 비교하면 추가 절약이 가능합니다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- 여행지 가이드 -->
+<div class="section" id="guide">
+  <div class="section-title">🗺️ 인기 여행지 가이드</div>
+  <div class="section-sub">목적지별 핵심 정보와 항공편 안내</div>
+  <div class="guide-grid">
+    <div class="guide-card">
+      <div class="guide-head">
+        <div class="guide-flag">🇯🇵</div>
+        <div><div class="guide-city">도쿄</div><div class="guide-code">서울(ICN) → 나리타(NRT) / 하네다(HND)</div></div>
+      </div>
+      <div class="guide-body">도쿄는 현대적 도시 문화와 오랜 전통이 공존하는 일본의 수도입니다. 신주쿠의 화려한 야경, 시부야 스크램블 교차로, 고즈넉한 아사쿠사 센소지 사원까지 다양한 매력을 품고 있습니다. 세계 최고 수준의 라멘·스시·야키토리 미식 문화는 음식만으로도 방문할 이유가 충분합니다. 비행 시간은 약 2시간 30분으로 짧아 주말 여행지로도 인기입니다.</div>
+      <span class="guide-tag">비행 약 2시간 30분</span><span class="guide-tag">무비자 90일</span><span class="guide-tag">JR 패스 활용</span>
+    </div>
+    <div class="guide-card">
+      <div class="guide-head">
+        <div class="guide-flag">🇹🇭</div>
+        <div><div class="guide-city">방콕</div><div class="guide-code">서울(ICN) → 수완나품(BKK)</div></div>
+      </div>
+      <div class="guide-body">태국의 수도 방콕은 저렴한 물가, 다채로운 길거리 음식, 화려한 사원이 어우러진 동남아 여행의 대명사입니다. 왓 프라깨우(에메랄드 사원), 짜뚜짝 주말 시장, 카오산 로드의 활기찬 밤거리 등 볼거리와 즐길거리가 넘칩니다. 시내 마사지 요금은 1시간에 약 500~800밧(약 2만 원 내외)으로 가성비 여행의 성지입니다. 비행 시간은 약 5시간 30분입니다.</div>
+      <span class="guide-tag">비행 약 5시간 30분</span><span class="guide-tag">무비자 30일</span><span class="guide-tag">저렴한 물가</span>
+    </div>
+    <div class="guide-card">
+      <div class="guide-head">
+        <div class="guide-flag">🇸🇬</div>
+        <div><div class="guide-city">싱가포르</div><div class="guide-code">서울(ICN) → 창이(SIN)</div></div>
+      </div>
+      <div class="guide-body">청결하고 안전한 도시 국가 싱가포르는 가족 여행과 허니문 여행지로 손꼽힙니다. 마리나 베이 샌즈 루프탑 수영장, 가든스 바이 더 베이의 슈퍼트리 야경, 유니버설 스튜디오 싱가포르 등 세계적 명소가 밀집해 있습니다. 다인종 문화가 융합된 호커 센터(노천 푸드코트)의 칠리크랩·락사·하이난 치킨라이스는 꼭 먹어봐야 할 현지 음식입니다.</div>
+      <span class="guide-tag">비행 약 6시간 30분</span><span class="guide-tag">무비자 30일</span><span class="guide-tag">세계 최고 공항</span>
+    </div>
+    <div class="guide-card">
+      <div class="guide-head">
+        <div class="guide-flag">🇫🇷</div>
+        <div><div class="guide-city">파리</div><div class="guide-code">서울(ICN) → 샤를드골(CDG)</div></div>
+      </div>
+      <div class="guide-body">'빛의 도시' 파리는 에펠탑, 루브르 박물관, 베르사유 궁전 등 역사적 명소가 즐비한 유럽 여행의 정수입니다. 세계 최고 수준의 패션·와인·미식 문화를 직접 경험할 수 있으며, 유레일 패스를 이용해 런던·암스테르담·바르셀로나 등 인근 도시로의 이동도 편리합니다. 봄(4~5월)과 가을(9~10월)이 날씨와 관광객 수 면에서 최적의 방문 시기입니다.</div>
+      <span class="guide-tag">비행 약 12시간</span><span class="guide-tag">무비자 90일(솅겐)</span><span class="guide-tag">유레일 패스</span>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- FAQ -->
+<div class="section" id="faq">
+  <div class="section-title">❓ 자주 묻는 질문</div>
+  <div class="section-sub">항공권 예약 전 꼭 알아두어야 할 내용</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">항공권을 가장 저렴하게 구매하는 방법은? <span class="arr">▾</span></button>
+      <div class="faq-a">출발 2~3개월 전 예약이 가장 효과적입니다. 화·수요일 출발 항공편이 주말 대비 평균 20~30% 저렴하며, 비수기(1~2월, 6월 초~7월 초)와 항공사 얼리버드 특가를 적극 활용하세요. 가격 알림 기능을 설정해두면 요금이 원하는 수준으로 떨어질 때 바로 예약할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">왕복과 편도 예약 중 어느 쪽이 저렴한가요? <span class="arr">▾</span></button>
+      <div class="faq-a">대부분의 경우 왕복 예약이 편도 두 장보다 저렴합니다. 특히 유럽·미주 장거리 노선은 왕복 운임이 훨씬 유리하게 책정되는 경우가 많습니다. 항공사의 프로모션도 대부분 왕복 기준으로 진행됩니다. 단, 오픈조 여행(다른 도시에서 귀국)을 계획 중이라면 두 구간 각각 가격을 비교해보는 것이 좋습니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">저가항공(LCC)과 대형항공사 중 무엇을 선택해야 하나요? <span class="arr">▾</span></button>
+      <div class="faq-a">단거리(3시간 이내) 노선, 수하물이 없는 가벼운 여행이라면 LCC가 경제적입니다. 단, 수하물·기내식·좌석 지정 등 부가 서비스를 추가하면 대형항공사와 가격 차이가 줄어들 수 있으므로 총비용을 비교하세요. 장거리 노선, 수하물이 많은 가족 여행, 비즈니스 출장이라면 서비스 품질이 보장된 대형항공사가 유리한 경우가 많습니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">항공권 예약 후 취소하면 환불이 되나요? <span class="arr">▾</span></button>
+      <div class="faq-a">운임 조건에 따라 다릅니다. 프로모션 특가 운임은 환불이 불가한 경우가 많고, 일반 운임은 수수료를 제하고 환불됩니다. 예약 전 반드시 취소·환불 정책을 확인하세요. 여행자 보험에 가입하면 불가피한 상황(질병, 자연재해 등)으로 인한 취소 시 비용을 보전받을 수 있어 권장합니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">경유편 선택 시 유의할 점은? <span class="arr">▾</span></button>
+      <div class="faq-a">환승 시간은 최소 2시간 이상 확보하는 것이 안전합니다. 특히 미국·영국·캐나다 경유 시 환승국의 입국 요건(ESTA, ETA 등 사전 승인)을 반드시 확인하세요. 수하물이 목적지까지 자동 연결(through check-in)되는지 여부도 중요합니다. 다른 항공사 간 환승은 연결이 보장되지 않으므로 특히 주의가 필요합니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">인천공항과 김포공항 중 어디서 출발하는 것이 유리한가요? <span class="arr">▾</span></button>
+      <div class="faq-a">일본·중국 일부 단거리 노선은 김포국제공항(GMP)에서 출발하는 편이 도심과의 접근성이 뛰어나고 항공권 가격도 경쟁력 있는 경우가 있습니다. 대부분의 장거리 국제선은 인천국제공항(ICN)에서 운항되며, 환승 편의성과 면세점·라운지 시설도 인천이 우수합니다. 예약 전 두 공항을 모두 검색해보는 것을 추천합니다.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
 
 <!-- 제휴 문의 -->
-<div class="contact-section" id="contact">
+<div class="contact-wrap" id="contact">
   <h2>🤝 제휴 문의</h2>
-  <p class="sub">광고·파트너십·협업 관련 문의를 남겨주세요.</p>
+  <p class="contact-sub">광고·파트너십·협업 관련 문의를 남겨주세요. 빠르게 답변드립니다.</p>
   <div class="form-card">
     <form action="https://formspree.io/f/xbdvrkqk" method="POST" onsubmit="onSubmit(event)">
       <label>이름 *</label>
@@ -199,16 +337,27 @@ nav a:hover{color:#fff}
   </div>
 </div>
 
-<hr class="divider">
+<hr class="div">
 
 <!-- Disqus 댓글 -->
-<div class="disqus-section" id="comments">
+<div class="disqus-wrap" id="comments">
   <h2>💬 댓글</h2>
   <div id="disqus_thread"></div>
 </div>
 
+<!-- 푸터 -->
+<footer>
+  <div class="footer-links">
+    <a href="/">홈</a>
+    <a href="about.html">SkyFind 소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <a href="contact.html">제휴 문의</a>
+    <a href="lotto.html">로또 번호 수정기</a>
+  </div>
+  <div class="footer-copy">© 2026 SkyFind. 본 사이트는 항공권 검색 편의를 위해 Google Flights로 연결하며, 직접 예약을 처리하지 않습니다.</div>
+</footer>
+
 <script>
-/* 오늘 날짜 기본값 */
 const today=new Date().toISOString().split('T')[0];
 document.getElementById('dep').value=today;
 const nxt=new Date();nxt.setDate(nxt.getDate()+7);
@@ -221,31 +370,28 @@ function setTrip(t,el){
   el.classList.add('on');
   document.getElementById('retField').style.opacity=t==='round'?'1':'0.3';
 }
-
 function swapCities(){
   const f=document.getElementById('from'),t=document.getElementById('to');
   [f.value,t.value]=[t.value,f.value];
 }
-
 function fillDest(city,code){
   document.getElementById('to').value=city+' ('+code+')';
   document.getElementById('from').value='서울 (ICN)';
   document.getElementById('search').scrollIntoView({behavior:'smooth'});
 }
-
 function doSearch(){
   const from=document.getElementById('from').value||'서울';
   const to=document.getElementById('to').value||'도쿄';
   const dep=document.getElementById('dep').value;
   const ret=document.getElementById('ret').value;
-  const cabin=document.getElementById('cabin').value;
-  const pax=document.getElementById('pax').value.replace(/[^0-9]/g,'');
   let q=`flights from ${from} to ${to} ${dep}`;
-  if(tripType==='round'&&ret) q+=` return ${ret}`;
-  const url=`https://www.google.com/travel/flights?q=${encodeURIComponent(q)}&curr=KRW`;
-  window.open(url,'_blank');
+  if(tripType==='round'&&ret)q+=` return ${ret}`;
+  window.open(`https://www.google.com/travel/flights?q=${encodeURIComponent(q)}&curr=KRW`,'_blank');
 }
-
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
 function onSubmit(e){
   e.preventDefault();
   const form=e.target;
@@ -256,8 +402,6 @@ function onSubmit(e){
     }).catch(()=>alert('네트워크 오류가 발생했습니다.'))
 }
 </script>
-
-<!-- Disqus -->
 <script>
 (function(){
   var d=document,s=d.createElement('script');
@@ -266,6 +410,6 @@ function onSubmit(e){
   (d.head||d.body).appendChild(s);
 })();
 </script>
-<noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">Disqus</a></noscript>
+<noscript>댓글을 보려면 JavaScript를 활성화해주세요.</noscript>
 </body>
 </html>
