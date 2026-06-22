@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>항공권 검색</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#060d1f;color:#fff;min-height:100vh}
+
+/* ── 헤더 ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;z-index:99;backdrop-filter:blur(10px)}
+.logo{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.logo span{color:#3b9eff}
+nav a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;margin-left:28px;transition:.2s}
+nav a:hover{color:#fff}
+
+/* ── 히어로 ── */
+.hero{position:relative;padding:70px 20px 60px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(59,158,255,.18),transparent 65%),
+             radial-gradient(ellipse at 20% 80%,rgba(99,102,241,.15),transparent 50%),#060d1f}
+.hero-inner{position:relative}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.15;margin-bottom:12px}
+.hero h1 span{background:linear-gradient(90deg,#3b9eff,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:rgba(255,255,255,.55);font-size:15px;margin-bottom:36px}
+
+/* ── 검색 카드 ── */
+.search-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:28px 28px 24px;max-width:720px;margin:0 auto;backdrop-filter:blur(10px)}
+.tab-row{display:flex;gap:6px;margin-bottom:22px}
+.tab{background:none;border:1px solid rgba(255,255,255,.12);border-radius:30px;color:rgba(255,255,255,.5);
+  font-size:13px;padding:5px 16px;cursor:pointer;transition:.2s}
+.tab.on{background:#3b9eff;border-color:#3b9eff;color:#fff}
+.row2{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:12px}
+.arrow{color:rgba(255,255,255,.35);font-size:20px;text-align:center}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase}
+.field input,.field select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:#fff;font-size:14px;padding:11px 14px;outline:none;transition:.2s;width:100%}
+.field input::placeholder{color:rgba(255,255,255,.25)}
+.field input:focus,.field select:focus{border-color:#3b9eff;background:rgba(59,158,255,.08)}
+.field select option{background:#0f1c3a;color:#fff}
+.btn-search{width:100%;padding:15px;border:none;border-radius:12px;cursor:pointer;
+  font-size:16px;font-weight:700;color:#fff;
+  background:linear-gradient(90deg,#1a6fd4,#3b9eff,#818cf8);transition:.2s;letter-spacing:.3px}
+.btn-search:hover{opacity:.88;transform:translateY(-1px)}
+
+/* ── 인기 노선 ── */
+.section{max-width:760px;margin:60px auto;padding:0 20px}
+.section h2{font-size:20px;font-weight:700;margin-bottom:18px;color:rgba(255,255,255,.9)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.dest-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:18px 14px;cursor:pointer;transition:.2s;text-align:center}
+.dest-card:hover{background:rgba(59,158,255,.1);border-color:rgba(59,158,255,.3);transform:translateY(-2px)}
+.dest-card .flag{font-size:28px;margin-bottom:8px}
+.dest-card .city{font-size:14px;font-weight:600}
+.dest-card .code{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+
+/* ── 구분선 ── */
+.divider{max-width:760px;margin:0 auto;border:none;border-top:1px solid rgba(255,255,255,.07)}
+
+/* ── 제휴문의 폼 ── */
+.contact-section{max-width:520px;margin:60px auto;padding:0 20px}
+.contact-section h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.contact-section .sub{color:rgba(255,255,255,.45);font-size:13px;margin-bottom:24px}
+.form-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px}
+.form-card label{display:block;font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.4px;text-transform:uppercase;margin-bottom:5px}
+.form-card input,.form-card textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:#fff;font-size:14px;padding:10px 13px;outline:none;transition:.2s;margin-bottom:16px}
+.form-card input::placeholder,.form-card textarea::placeholder{color:rgba(255,255,255,.25)}
+.form-card input:focus,.form-card textarea:focus{border-color:#3b9eff}
+.form-card textarea{resize:vertical;min-height:110px;font-family:inherit}
+.btn-submit{width:100%;padding:13px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;
+  color:#fff;background:linear-gradient(90deg,#1a6fd4,#3b9eff);transition:.2s}
+.btn-submit:hover{opacity:.85;transform:translateY(-1px)}
+.ok-msg{text-align:center;color:#3b9eff;font-size:13px;margin-top:14px;display:none}
+
+/* ── Disqus ── */
+.disqus-section{max-width:720px;margin:40px auto 60px;padding:0 20px}
+.disqus-section h2{font-size:20px;font-weight:700;margin-bottom:18px}
+
+/* ── 반응형 ── */
+@media(max-width:600px){
+  nav{padding:14px 18px}
+  nav a{display:none}
+  .row2{grid-template-columns:1fr;}.arrow{display:none}
+  .row3{grid-template-columns:1fr 1fr}
+  .hero{padding:50px 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✈️ Sky<span>Find</span></div>
+  <div>
+    <a href="#search">검색</a>
+    <a href="#contact">제휴문의</a>
+    <a href="#comments">댓글</a>
+  </div>
+</nav>
+
+<!-- 히어로 + 검색 -->
+<section class="hero" id="search">
+  <div class="hero-inner">
+    <h1>어디로 떠나시나요?<br><span>최저가 항공권을 찾아드립니다</span></h1>
+    <p>출발지와 목적지를 입력하면 Google Flights에서 최적 결과를 보여드립니다</p>
+
+    <div class="search-card">
+      <div class="tab-row">
+        <button class="tab on" onclick="setTrip('round',this)">왕복</button>
+        <button class="tab"    onclick="setTrip('one',this)">편도</button>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>출발지</label>
+          <input id="from" type="text" placeholder="서울 (ICN)">
+        </div>
+        <div class="arrow" onclick="swapCities()" style="cursor:pointer;font-size:22px">⇄</div>
+        <div class="field">
+          <label>도착지</label>
+          <input id="to" type="text" placeholder="도쿄 (NRT)">
+        </div>
+      </div>
+
+      <div class="row3">
+        <div class="field">
+          <label>출발일</label>
+          <input id="dep" type="date">
+        </div>
+        <div class="field" id="retField">
+          <label>귀국일</label>
+          <input id="ret" type="date">
+        </div>
+        <div class="field">
+          <label>인원</label>
+          <select id="pax">
+            <option>성인 1명</option>
+            <option>성인 2명</option>
+            <option>성인 3명</option>
+            <option>성인 4명</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:18px">
+        <label>좌석 클래스</label>
+        <select id="cabin">
+          <option value="1">이코노미</option>
+          <option value="2">프리미엄 이코노미</option>
+          <option value="3">비즈니스</option>
+          <option value="4">퍼스트</option>
+        </select>
+      </div>
+
+      <button class="btn-search" onclick="doSearch()">🔍 항공권 검색</button>
+    </div>
+  </div>
+</section>
+
+<!-- 인기 노선 -->
+<div class="section">
+  <h2>✈️ 인기 노선</h2>
+  <div class="cards">
+    <div class="dest-card" onclick="fillDest('도쿄','NRT')"><div class="flag">🇯🇵</div><div class="city">도쿄</div><div class="code">NRT</div></div>
+    <div class="dest-card" onclick="fillDest('오사카','KIX')"><div class="flag">🇯🇵</div><div class="city">오사카</div><div class="code">KIX</div></div>
+    <div class="dest-card" onclick="fillDest('방콕','BKK')"><div class="flag">🇹🇭</div><div class="city">방콕</div><div class="code">BKK</div></div>
+    <div class="dest-card" onclick="fillDest('싱가포르','SIN')"><div class="flag">🇸🇬</div><div class="city">싱가포르</div><div class="code">SIN</div></div>
+    <div class="dest-card" onclick="fillDest('파리','CDG')"><div class="flag">🇫🇷</div><div class="city">파리</div><div class="code">CDG</div></div>
+    <div class="dest-card" onclick="fillDest('뉴욕','JFK')"><div class="flag">🇺🇸</div><div class="city">뉴욕</div><div class="code">JFK</div></div>
+    <div class="dest-card" onclick="fillDest('하와이','HNL')"><div class="flag">🇺🇸</div><div class="city">하와이</div><div class="code">HNL</div></div>
+    <div class="dest-card" onclick="fillDest('두바이','DXB')"><div class="flag">🇦🇪</div><div class="city">두바이</div><div class="code">DXB</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 제휴 문의 -->
+<div class="contact-section" id="contact">
+  <h2>🤝 제휴 문의</h2>
+  <p class="sub">광고·파트너십·협업 관련 문의를 남겨주세요.</p>
+  <div class="form-card">
+    <form action="https://formspree.io/f/xbdvrkqk" method="POST" onsubmit="onSubmit(event)">
+      <label>이름 *</label>
+      <input type="text" name="name" placeholder="홍길동" required>
+      <label>이메일 *</label>
+      <input type="email" name="email" placeholder="example@email.com" required>
+      <label>회사 / 채널명</label>
+      <input type="text" name="company" placeholder="선택 입력">
+      <label>문의 내용 *</label>
+      <textarea name="message" placeholder="제휴 목적과 내용을 자유롭게 적어주세요." required></textarea>
+      <input type="hidden" name="_subject" value="[제휴문의] SkyFind 새 문의">
+      <button class="btn-submit" type="submit">문의 보내기 →</button>
+    </form>
+    <p class="ok-msg" id="okMsg">✅ 문의가 전송되었습니다. 감사합니다!</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Disqus 댓글 -->
+<div class="disqus-section" id="comments">
+  <h2>💬 댓글</h2>
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+/* 오늘 날짜 기본값 */
+const today=new Date().toISOString().split('T')[0];
+document.getElementById('dep').value=today;
+const nxt=new Date();nxt.setDate(nxt.getDate()+7);
+document.getElementById('ret').value=nxt.toISOString().split('T')[0];
+
+let tripType='round';
+function setTrip(t,el){
+  tripType=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('retField').style.opacity=t==='round'?'1':'0.3';
+}
+
+function swapCities(){
+  const f=document.getElementById('from'),t=document.getElementById('to');
+  [f.value,t.value]=[t.value,f.value];
+}
+
+function fillDest(city,code){
+  document.getElementById('to').value=city+' ('+code+')';
+  document.getElementById('from').value='서울 (ICN)';
+  document.getElementById('search').scrollIntoView({behavior:'smooth'});
+}
+
+function doSearch(){
+  const from=document.getElementById('from').value||'서울';
+  const to=document.getElementById('to').value||'도쿄';
+  const dep=document.getElementById('dep').value;
+  const ret=document.getElementById('ret').value;
+  const cabin=document.getElementById('cabin').value;
+  const pax=document.getElementById('pax').value.replace(/[^0-9]/g,'');
+  let q=`flights from ${from} to ${to} ${dep}`;
+  if(tripType==='round'&&ret) q+=` return ${ret}`;
+  const url=`https://www.google.com/travel/flights?q=${encodeURIComponent(q)}&curr=KRW`;
+  window.open(url,'_blank');
+}
+
+function onSubmit(e){
+  e.preventDefault();
+  const form=e.target;
+  fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}})
+    .then(r=>{
+      if(r.ok){form.reset();document.getElementById('okMsg').style.display='block'}
+      else alert('전송 오류. 다시 시도해주세요.')
+    }).catch(()=>alert('네트워크 오류가 발생했습니다.'))
+}
+</script>
+
+<!-- Disqus -->
+<script>
+(function(){
+  var d=document,s=d.createElement('script');
+  s.src='https://productbuilder-jhcomu6lg0.disqus.com/embed.js';
+  s.setAttribute('data-timestamp',+new Date());
+  (d.head||d.body).appendChild(s);
+})();
+</script>
+<noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">Disqus</a></noscript>
+</body>
+</html>
