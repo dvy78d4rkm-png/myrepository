@@ -24,6 +24,7 @@
 <link rel="canonical" href="https://myrepository.pages.dev/">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"SkyFind","description":"최저가 항공권 검색 서비스","potentialAction":{"@type":"SearchAction","target":"https://www.google.com/travel/flights?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
@@ -240,6 +241,27 @@ footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 4
 .basis-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;color:rgba(255,255,255,.5);font-size:12px;padding:5px 14px;cursor:pointer;transition:.2s;font-weight:500}
 .basis-btn.on{background:rgba(59,158,255,.18);border-color:#3b9eff;color:#3b9eff;font-weight:700}
 .basis-note{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5;padding-top:5px;flex-basis:100%}
+
+/* Flatpickr 다크 테마 커스터마이징 */
+.flatpickr-calendar{background:#0b1929 !important;border:1px solid rgba(59,158,255,.3) !important;border-radius:14px !important;box-shadow:0 12px 48px rgba(0,0,0,.7) !important;padding:6px !important}
+.flatpickr-months .flatpickr-month{background:#0b1929 !important;color:#fff}
+.flatpickr-current-month{color:#fff !important;font-size:14px}
+.flatpickr-current-month .flatpickr-monthDropdown-months{background:#0b1929 !important;color:#fff;border:none}
+.flatpickr-current-month input.cur-year{color:#fff !important}
+.flatpickr-weekdays{background:#0b1929 !important}
+span.flatpickr-weekday{background:#0b1929 !important;color:rgba(59,158,255,.7);font-size:11px;font-weight:700}
+.flatpickr-day{color:rgba(255,255,255,.75) !important;border-radius:8px !important;font-size:13px}
+.flatpickr-day:hover,.flatpickr-day:focus{background:rgba(59,158,255,.2) !important;border-color:transparent !important;color:#fff !important}
+.flatpickr-day.selected,.flatpickr-day.selected:hover{background:#3b9eff !important;border-color:#3b9eff !important;color:#fff !important;font-weight:700}
+.flatpickr-day.today{border-color:rgba(59,158,255,.7) !important;color:#3b9eff !important}
+.flatpickr-day.today:hover{background:rgba(59,158,255,.2) !important;color:#fff !important}
+.flatpickr-day.prevMonthDay,.flatpickr-day.nextMonthDay{color:rgba(255,255,255,.2) !important}
+.flatpickr-day.flatpickr-disabled{color:rgba(255,255,255,.15) !important}
+.flatpickr-months .flatpickr-prev-month svg,.flatpickr-months .flatpickr-next-month svg{fill:rgba(255,255,255,.6) !important}
+.flatpickr-months .flatpickr-prev-month:hover svg,.flatpickr-months .flatpickr-next-month:hover svg{fill:#3b9eff !important}
+.numInputWrapper span.arrowUp::after{border-bottom-color:rgba(255,255,255,.5) !important}
+.numInputWrapper span.arrowDown::after{border-top-color:rgba(255,255,255,.5) !important}
+.flatpickr-input.active,.flatpickr-input:focus{border-color:#3b9eff !important;background:rgba(59,158,255,.07) !important}
 .range-tip{font-size:12px;color:rgba(255,255,255,.45);background:rgba(59,158,255,.06);border:1px solid rgba(59,158,255,.15);border-radius:8px;padding:10px 14px;margin-bottom:14px;line-height:1.6}
 .dr-card{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;cursor:pointer;transition:.2s;margin-bottom:8px}
 .dr-card:hover{border-color:rgba(59,158,255,.3);background:rgba(59,158,255,.05)}
@@ -309,19 +331,20 @@ footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 4
           <div class="range-sep">~</div>
           <div class="field"><label>여행 가능 종료일</label><input id="rangeEnd" type="date"></div>
         </div>
-        <div class="dur-label">여행 기간</div>
+        <div class="dur-label">여행 기간 <span style="font-weight:400;font-size:10px;color:rgba(59,158,255,.7);text-transform:none;letter-spacing:0">숫자 직접 입력 가능</span></div>
         <div class="dur-input-row">
-          <input type="number" id="durInput" min="1" max="365" value="5" oninput="onDurInput(this)" placeholder="박">
+          <input type="number" id="durInput" min="1" max="365" value="5" oninput="onDurInput(this)" title="원하는 박수를 직접 입력하세요">
           <span class="dur-unit">박</span>
           <div class="dur-pills">
-            <button class="dur-pill" onclick="setDur(1,this)">1박</button>
-            <button class="dur-pill" onclick="setDur(3,this)">3박</button>
-            <button class="dur-pill on" onclick="setDur(5,this)">5박</button>
-            <button class="dur-pill" onclick="setDur(7,this)">7박</button>
-            <button class="dur-pill" onclick="setDur(10,this)">10박</button>
-            <button class="dur-pill" onclick="setDur(14,this)">14박</button>
-            <button class="dur-pill" onclick="setDur(21,this)">21박</button>
-            <button class="dur-pill" onclick="setDur(30,this)">30박</button>
+            <button class="dur-pill" onclick="setDur(1,this)">1</button>
+            <button class="dur-pill" onclick="setDur(2,this)">2</button>
+            <button class="dur-pill" onclick="setDur(3,this)">3</button>
+            <button class="dur-pill on" onclick="setDur(5,this)">5</button>
+            <button class="dur-pill" onclick="setDur(7,this)">7</button>
+            <button class="dur-pill" onclick="setDur(10,this)">10</button>
+            <button class="dur-pill" onclick="setDur(14,this)">14</button>
+            <button class="dur-pill" onclick="setDur(21,this)">21</button>
+            <button class="dur-pill" onclick="setDur(30,this)">30</button>
           </div>
         </div>
         <div class="dur-label" style="margin-top:2px">박수 기준</div>
@@ -692,6 +715,8 @@ footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 4
   <div class="footer-copy">© 2026 SkyFind. 본 사이트는 항공권 검색 편의를 위해 Google Flights로 연결하며, 직접 예약을 처리하지 않습니다.</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <script>
 // ── Amadeus API 설정 ─────────────────────────────────────────
 // 1. https://developers.amadeus.com 에서 무료 계정 등록
@@ -717,15 +742,24 @@ const IATA_MAP = {
   쿠알라룸푸르:'KUL',자카르타:'CGK',시드니:'SYD',멜버른:'MEL'
 };
 
-// 날짜 기본값 설정
+// 날짜 기본값 계산
 const today=new Date().toISOString().split('T')[0];
-document.getElementById('dep').value=today;
-const nxt=new Date();nxt.setDate(nxt.getDate()+7);
-document.getElementById('ret').value=nxt.toISOString().split('T')[0];
-// 날짜 범위 기본값 (오늘 ~ 2개월 후)
-document.getElementById('rangeStart').value=today;
-const rangeEnd=new Date();rangeEnd.setDate(rangeEnd.getDate()+60);
-document.getElementById('rangeEnd').value=rangeEnd.toISOString().split('T')[0];
+const nxtDate=new Date();nxtDate.setDate(nxtDate.getDate()+7);
+const nxtStr=nxtDate.toISOString().split('T')[0];
+const reDate=new Date();reDate.setDate(reDate.getDate()+60);
+const reStr=reDate.toISOString().split('T')[0];
+
+// Flatpickr 초기화 (한국어 달력)
+(function initFP(){
+  if(typeof flatpickr==='undefined') return;
+  flatpickr.localize(flatpickr.l10ns.ko);
+  const base={dateFormat:'Y-m-d',minDate:'today',disableMobile:false,
+    nextArrow:'›',prevArrow:'‹'};
+  flatpickr('#dep',{...base,defaultDate:today});
+  flatpickr('#ret',{...base,defaultDate:nxtStr});
+  flatpickr('#rangeStart',{...base,defaultDate:today});
+  flatpickr('#rangeEnd',{...base,defaultDate:reStr});
+})();
 
 let tripType='round';
 let searchMode='exact';
