@@ -227,10 +227,19 @@ footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 4
 .range-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:12px}
 .range-sep{text-align:center;color:rgba(255,255,255,.3);font-size:22px}
 .dur-label{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
-.dur-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.dur-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;color:rgba(255,255,255,.55);font-size:12px;padding:5px 13px;cursor:pointer;transition:.2s}
+.dur-input-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+#durInput{width:64px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:22px;font-weight:800;text-align:center;padding:8px 0;outline:none;-moz-appearance:textfield}
+#durInput::-webkit-inner-spin-button,#durInput::-webkit-outer-spin-button{-webkit-appearance:none}
+#durInput:focus{border-color:#3b9eff}
+.dur-unit{font-size:15px;color:rgba(255,255,255,.55);font-weight:600;margin-right:4px}
+.dur-pills{display:flex;flex-wrap:wrap;gap:5px}
+.dur-pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;color:rgba(255,255,255,.55);font-size:12px;padding:4px 12px;cursor:pointer;transition:.2s}
 .dur-pill.on{background:#3b9eff;border-color:#3b9eff;color:#fff;font-weight:700}
 .dur-pill:hover:not(.on){background:rgba(255,255,255,.12)}
+.dur-basis-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
+.basis-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;color:rgba(255,255,255,.5);font-size:12px;padding:5px 14px;cursor:pointer;transition:.2s;font-weight:500}
+.basis-btn.on{background:rgba(59,158,255,.18);border-color:#3b9eff;color:#3b9eff;font-weight:700}
+.basis-note{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5;padding-top:5px;flex-basis:100%}
 .range-tip{font-size:12px;color:rgba(255,255,255,.45);background:rgba(59,158,255,.06);border:1px solid rgba(59,158,255,.15);border-radius:8px;padding:10px 14px;margin-bottom:14px;line-height:1.6}
 .dr-card{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 16px;cursor:pointer;transition:.2s;margin-bottom:8px}
 .dr-card:hover{border-color:rgba(59,158,255,.3);background:rgba(59,158,255,.05)}
@@ -300,17 +309,26 @@ footer{margin-top:64px;border-top:1px solid rgba(255,255,255,.07);padding:36px 4
           <div class="range-sep">~</div>
           <div class="field"><label>여행 가능 종료일</label><input id="rangeEnd" type="date"></div>
         </div>
-        <div class="dur-label">여행 기간 선택</div>
-        <div class="dur-pills">
-          <button class="dur-pill" onclick="setDur(1,this)">1박2일</button>
-          <button class="dur-pill" onclick="setDur(2,this)">2박3일</button>
-          <button class="dur-pill" onclick="setDur(3,this)">3박4일</button>
-          <button class="dur-pill on" onclick="setDur(5,this)">5박6일</button>
-          <button class="dur-pill" onclick="setDur(7,this)">일주일</button>
-          <button class="dur-pill" onclick="setDur(9,this)">9박10일</button>
-          <button class="dur-pill" onclick="setDur(14,this)">2주일</button>
-          <button class="dur-pill" onclick="setDur(21,this)">3주일</button>
-          <button class="dur-pill" onclick="setDur(30,this)">한 달</button>
+        <div class="dur-label">여행 기간</div>
+        <div class="dur-input-row">
+          <input type="number" id="durInput" min="1" max="365" value="5" oninput="onDurInput(this)" placeholder="박">
+          <span class="dur-unit">박</span>
+          <div class="dur-pills">
+            <button class="dur-pill" onclick="setDur(1,this)">1박</button>
+            <button class="dur-pill" onclick="setDur(3,this)">3박</button>
+            <button class="dur-pill on" onclick="setDur(5,this)">5박</button>
+            <button class="dur-pill" onclick="setDur(7,this)">7박</button>
+            <button class="dur-pill" onclick="setDur(10,this)">10박</button>
+            <button class="dur-pill" onclick="setDur(14,this)">14박</button>
+            <button class="dur-pill" onclick="setDur(21,this)">21박</button>
+            <button class="dur-pill" onclick="setDur(30,this)">30박</button>
+          </div>
+        </div>
+        <div class="dur-label" style="margin-top:2px">박수 기준</div>
+        <div class="dur-basis-row">
+          <button class="basis-btn on" onclick="setBasis('depart',this)">✈ 출발지 기준</button>
+          <button class="basis-btn" onclick="setBasis('arrive',this)">🏨 도착지 기준</button>
+          <span class="basis-note" id="basisNote"></span>
         </div>
         <div class="field" style="margin-bottom:12px"><label>인원</label>
           <select id="paxRange"><option>성인 1명</option><option>성인 2명</option><option>성인 3명</option><option>성인 4명</option></select>
@@ -712,6 +730,7 @@ document.getElementById('rangeEnd').value=rangeEnd.toISOString().split('T')[0];
 let tripType='round';
 let searchMode='exact';
 let durNights=5;
+let durBasis='depart';
 
 function setTrip(t,el){
   tripType=t;
@@ -728,10 +747,36 @@ function setMode(mode,el){
   document.getElementById('searchBtn').textContent=
     mode==='range'?'📅 날짜별 최저가 찾기':'🔍 항공권 검색';
 }
+function getDurNights(){ return Math.max(1,parseInt(document.getElementById('durInput')?.value)||durNights); }
+function getEffectiveDur(){ const n=getDurNights(); return durBasis==='arrive'?n+2:n; }
+function updateBasisNote(){
+  const el=document.getElementById('basisNote'); if(!el) return;
+  if(durBasis==='arrive'){
+    const n=getDurNights();
+    el.textContent=`현지 ${n}박 기준 → 이동일 2일 포함, 실제 검색 ${n+2}박으로 진행합니다`;
+  } else { el.textContent=''; }
+}
+function setBasis(b,el){
+  durBasis=b;
+  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.remove('on'));
+  el.classList.add('on');
+  updateBasisNote();
+}
 function setDur(n,el){
   durNights=n;
+  const inp=document.getElementById('durInput');
+  if(inp) inp.value=n;
   document.querySelectorAll('.dur-pill').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
+  if(el) el.classList.add('on');
+  updateBasisNote();
+}
+function onDurInput(el){
+  durNights=Math.max(1,parseInt(el.value)||1);
+  document.querySelectorAll('.dur-pill').forEach(b=>{
+    const m=b.getAttribute('onclick').match(/setDur\((\d+)/);
+    b.classList.toggle('on', m && parseInt(m[1])===durNights);
+  });
+  updateBasisNote();
 }
 function swapCities(){
   const f=document.getElementById('from'),t=document.getElementById('to');
@@ -755,7 +800,8 @@ const DAYS=['일','월','화','수','목','금','토'];
 function fmtKo(d){ return `${d.getMonth()+1}월 ${d.getDate()}일 (${DAYS[d.getDay()]})`; }
 
 function renderDateCards(dates,fromRaw,toRaw){
-  const n=durNights;
+  const n=getEffectiveDur();
+  const display=durBasis==='arrive'?`현지 ${getDurNights()}박 (총 ${n}박)`:n+'박'+(n+1)+'일';
   const cards=dates.map(d=>{
     const dep=new Date(d);
     const ret=new Date(d); ret.setDate(ret.getDate()+n);
@@ -763,18 +809,19 @@ function renderDateCards(dates,fromRaw,toRaw){
     const rs=ret.toISOString().split('T')[0];
     const url=`https://www.google.com/travel/flights?q=${encodeURIComponent(`flights from ${fromRaw} to ${toRaw} ${ds} return ${rs}`)}&curr=KRW`;
     return `<div class="dr-card" onclick="window.open('${url}','_blank')">
-      <div><div class="dr-date">✈ ${fmtKo(dep)} 출발</div><div class="dr-sub">귀국 ${fmtKo(ret)} · ${n}박${n+1}일</div></div>
+      <div><div class="dr-date">✈ ${fmtKo(dep)} 출발</div><div class="dr-sub">귀국 ${fmtKo(ret)} · ${display}</div></div>
       <div style="color:rgba(255,255,255,.35);font-size:22px">›</div>
     </div>`;
   }).join('');
   document.getElementById('results').innerHTML=`
-    <div class="r-header"><span class="r-title">📅 출발 가능 날짜 (${dates.length}개)</span><span class="r-count">${n}박${n+1}일 기준</span></div>
+    <div class="r-header"><span class="r-title">📅 출발 가능 날짜 (${dates.length}개)</span><span class="r-count">${display} 기준</span></div>
     ${cards}
     <p style="font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:4px">클릭하면 해당 날짜 항공권을 Google Flights에서 확인합니다</p>`;
 }
 
 function renderPriceDateCards(results,fromRaw,toRaw){
-  const n=durNights;
+  const n=getEffectiveDur();
+  const display=durBasis==='arrive'?`현지 ${getDurNights()}박 (총 ${n}박)`:n+'박'+(n+1)+'일';
   const prices=results.map(r=>r.price);
   const minP=Math.min(...prices),maxP=Math.max(...prices);
   const sorted=[...results].sort((a,b)=>a.price-b.price);
@@ -789,7 +836,7 @@ function renderPriceDateCards(results,fromRaw,toRaw){
               ratio<0.66?`<div class="dr-tag normal">보통</div>`:
               `<div class="dr-tag pricey">비쌈</div>`;
     return `<div class="dr-card" onclick="window.open('${url}','_blank')">
-      <div><div class="dr-date">✈ ${fmtKo(dep)} 출발</div><div class="dr-sub">귀국 ${fmtKo(ret)} · ${n}박${n+1}일</div></div>
+      <div><div class="dr-date">✈ ${fmtKo(dep)} 출발</div><div class="dr-sub">귀국 ${fmtKo(ret)} · ${display}</div></div>
       <div class="dr-right"><div class="dr-price">₩${r.price.toLocaleString()}</div>${tag}</div>
     </div>`;
   }).join('');
