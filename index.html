@@ -287,9 +287,9 @@ span.flatpickr-weekday{background:#0f1923 !important;color:rgba(59,158,255,.65);
       <!-- 날짜 범위 모드 -->
       <div id="rangeMode">
         <div class="range-grid">
-          <div class="field"><label>시작일</label><input id="rangeStart" type="date"></div>
+          <div class="field"><label>여행 시작 월</label><select id="monthStart"></select></div>
           <div class="range-sep">~</div>
-          <div class="field"><label>종료일</label><input id="rangeEnd" type="date"></div>
+          <div class="field"><label>여행 종료 월</label><select id="monthEnd"></select></div>
         </div>
 
         <div class="dur-label">여행 기간 <span style="color:rgba(59,158,255,.65);font-weight:400;letter-spacing:0;text-transform:none;font-size:10px">직접 입력 가능</span></div>
@@ -322,7 +322,7 @@ span.flatpickr-weekday{background:#0f1923 !important;color:rgba(59,158,255,.65);
             <option>성인 3명</option><option>성인 4명</option>
           </select>
         </div>
-        <div class="range-tip">범위 내 출발 가능 날짜를 찾아드립니다. Amadeus API 연결 시 날짜별 가격 비교 가능.</div>
+        <div class="range-tip">방학·휴가 등 여행 가능한 <b style="color:rgba(255,255,255,.6)">월 범위</b>를 선택하면, 해당 기간 내 원하는 박수의 항공권을 찾아드립니다.</div>
       </div>
 
       <button class="btn-search" id="searchBtn" onclick="doSearch()">항공권 검색</button>
@@ -522,18 +522,34 @@ const IATA_MAP={
 const today=new Date().toISOString().split('T')[0];
 const nxtDate=new Date();nxtDate.setDate(nxtDate.getDate()+7);
 const nxtStr=nxtDate.toISOString().split('T')[0];
-const reDate=new Date();reDate.setDate(reDate.getDate()+60);
-const reStr=reDate.toISOString().split('T')[0];
 
-// Flatpickr 초기화
+// Flatpickr 초기화 (날짜 지정 모드만)
 if(typeof flatpickr!=='undefined'){
   flatpickr.localize(flatpickr.l10ns.ko);
   const fp={dateFormat:'Y-m-d',minDate:'today',nextArrow:'›',prevArrow:'‹'};
   flatpickr('#dep',{...fp,defaultDate:today});
   flatpickr('#ret',{...fp,defaultDate:nxtStr});
-  flatpickr('#rangeStart',{...fp,defaultDate:today});
-  flatpickr('#rangeEnd',{...fp,defaultDate:reStr});
 }
+
+// 월 드롭다운 생성 (현재 월부터 18개월)
+(function initMonthSelects(){
+  const now=new Date();
+  let html='';
+  for(let i=0;i<18;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()+i,1);
+    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    const label=`${d.getFullYear()}년 ${d.getMonth()+1}월`;
+    html+=`<option value="${val}">${label}</option>`;
+  }
+  const ms=document.getElementById('monthStart');
+  const me=document.getElementById('monthEnd');
+  if(ms) ms.innerHTML=html;
+  if(me){
+    me.innerHTML=html;
+    // 기본값: 종료 월을 시작 월 + 2로 설정
+    if(me.options.length>2) me.selectedIndex=2;
+  }
+})();
 
 let tripType='round',searchMode='exact',durNights=5,durBasis='depart';
 
@@ -609,9 +625,17 @@ function sampleDates(dates,n){
 const DAYS=['일','월','화','수','목','금','토'];
 function fmtKo(d){ return `${d.getMonth()+1}/${d.getDate()}(${DAYS[d.getDay()]})`; }
 
+function getMonthRangeLabel(){
+  const ms=document.getElementById('monthStart'),me=document.getElementById('monthEnd');
+  if(!ms||!me) return '';
+  const sOpt=ms.options[ms.selectedIndex],eOpt=me.options[me.selectedIndex];
+  return sOpt&&eOpt?` · ${sOpt.text.replace('년 ','년').replace('월','')}~${eOpt.text.replace(/\d+년 /,'')}`:'';
+}
+
 function renderDateCards(dates,fromRaw,toRaw){
   const n=getEffectiveDur();
   const display=durBasis==='arrive'?`현지 ${getDurNights()}박 (총 ${n}박)`:n+'박'+(n+1)+'일';
+  const rangeLabel=getMonthRangeLabel();
   const cards=dates.map(d=>{
     const dep=new Date(d),ret=new Date(d);ret.setDate(ret.getDate()+n);
     const ds=dep.toISOString().split('T')[0],rs=ret.toISOString().split('T')[0];
@@ -622,7 +646,7 @@ function renderDateCards(dates,fromRaw,toRaw){
     </div>`;
   }).join('');
   document.getElementById('results').innerHTML=`
-    <div class="r-header"><span class="r-title">출발 가능 날짜 ${dates.length}개</span><span class="r-count">${display}</span></div>
+    <div class="r-header"><span class="r-title">출발 가능 날짜 ${dates.length}개</span><span class="r-count">${display}${rangeLabel}</span></div>
     ${cards}
     <p style="font-size:10px;color:rgba(255,255,255,.25);text-align:center;margin-top:6px">클릭하면 Google Flights에서 해당 날짜 항공권 확인</p>`;
 }
@@ -653,11 +677,14 @@ function renderPriceDateCards(results,fromRaw,toRaw){
 }
 
 async function doRangeSearch(fromRaw,toRaw,fromCode,toCode){
-  const s=document.getElementById('rangeStart').value;
-  const e=document.getElementById('rangeEnd').value;
-  if(!s||!e){alert('시작일과 종료일을 모두 입력해주세요.');return;}
-  const start=new Date(s),end=new Date(e);
-  if(start>=end){alert('종료일이 시작일보다 늦어야 합니다.');return;}
+  const ms=document.getElementById('monthStart').value; // "2026-06"
+  const me=document.getElementById('monthEnd').value;   // "2026-08"
+  if(!ms||!me){alert('시작 월과 종료 월을 선택해주세요.');return;}
+  const[sy,smn]=ms.split('-').map(Number);
+  const[ey,emn]=me.split('-').map(Number);
+  if(sy>ey||(sy===ey&&smn>emn)){alert('종료 월이 시작 월과 같거나 늦어야 합니다.');return;}
+  const start=new Date(sy,smn-1,1);          // 시작 월 1일
+  const end=new Date(ey,emn,0);              // 종료 월 말일
   const all=[];let d=new Date(start);
   while(d<=end&&all.length<90){all.push(new Date(d));d.setDate(d.getDate()+1);}
   const sampled=sampleDates(all,Math.min(10,all.length));
