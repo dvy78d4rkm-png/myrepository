@@ -11,6 +11,14 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta name="google-adsense-account" content="ca-pub-4944380820403547">
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xdh4h656me");
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0QVMRF7W6H"></script>
 <script>
@@ -108,6 +116,7 @@ body{background:var(--bg-outer);display:flex;justify-content:center;min-height:1
 
 /* ─── Range mode ─── */
 #rangeMode{display:none}
+.range-section-label{font-size:12px;font-weight:800;color:var(--accent-light);letter-spacing:.3px;margin-bottom:8px}
 .range-grid{display:grid;grid-template-columns:1fr 20px 1fr;gap:6px;align-items:end;margin-bottom:10px}
 .range-sep{text-align:center;color:var(--text-dim);font-size:16px;padding-bottom:12px}
 .dur-label{font-size:10px;font-weight:700;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px}
@@ -184,6 +193,20 @@ body{background:var(--bg-outer);display:flex;justify-content:center;min-height:1
 .dest-city{font-size:15px;font-weight:800;color:var(--text);display:block;margin-bottom:2px;letter-spacing:-.3px}
 .dest-iata{font-size:10px;color:var(--text-dim);display:block;margin-bottom:10px}
 .dest-price{font-size:13px;font-weight:700;color:var(--accent-light);display:block}
+
+/* ─── Alert Form ─── */
+.alert-icon{text-align:center;font-size:40px;margin-bottom:10px;line-height:1}
+.alert-desc{font-size:12px;color:var(--text-sub);text-align:center;margin-bottom:16px;line-height:1.6}
+.alert-form{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:18px}
+.price-wrap,.nights-wrap{display:flex;align-items:center;gap:8px}
+.price-wrap input,.nights-wrap input{flex:1;background:var(--bg-field);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;font-weight:600;padding:11px 13px;outline:none;transition:.15s;-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.price-wrap input::-webkit-inner-spin-button,.price-wrap input::-webkit-outer-spin-button,
+.nights-wrap input::-webkit-inner-spin-button,.nights-wrap input::-webkit-outer-spin-button{-webkit-appearance:none}
+.price-wrap input:focus,.nights-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.price-unit,.nights-unit{font-size:13px;font-weight:700;color:var(--text-sub);white-space:nowrap;flex-shrink:0}
+.btn-alert{width:100%;padding:15px;border:none;border-radius:12px;font-size:15px;font-weight:900;color:#fff;background:var(--accent);letter-spacing:-.2px;transition:.15s;margin-top:6px;box-shadow:0 4px 16px rgba(59,130,246,.35)}
+.btn-alert:hover{background:var(--accent-light);box-shadow:0 6px 20px rgba(59,130,246,.45)}
+.btn-alert:active{transform:scale(.98)}
 
 /* ─── FAQ ─── */
 .faq-item{border-bottom:1px solid var(--border)}
@@ -302,13 +325,15 @@ span.flatpickr-weekday{background:#0f1923 !important;color:rgba(59,158,255,.65);
 
       <!-- 날짜 범위 모드 -->
       <div id="rangeMode">
+
+        <div class="range-section-label">① 여행 가능 기간</div>
         <div class="range-grid">
-          <div class="field"><label>여행 시작 월</label><select id="monthStart"></select></div>
+          <div class="field"><label>시작일</label><input id="rangeStart" type="text" placeholder="출발 가능 첫날" readonly></div>
           <div class="range-sep">~</div>
-          <div class="field"><label>여행 종료 월</label><select id="monthEnd"></select></div>
+          <div class="field"><label>종료일</label><input id="rangeEnd" type="text" placeholder="복귀 마감일" readonly></div>
         </div>
 
-        <div class="dur-label">여행 기간 <span style="color:rgba(59,158,255,.65);font-weight:400;letter-spacing:0;text-transform:none;font-size:10px">직접 입력 가능</span></div>
+        <div class="range-section-label" style="margin-top:4px">② 원하는 박수</div>
         <div class="dur-input-row">
           <input type="number" id="durInput" min="1" max="365" value="5" oninput="onDurInput(this)" title="박수 입력">
           <span class="dur-unit">박</span>
@@ -325,20 +350,13 @@ span.flatpickr-weekday{background:#0f1923 !important;color:rgba(59,158,255,.65);
           </div>
         </div>
 
-        <div class="dur-label" style="margin-top:2px">박수 기준</div>
-        <div class="dur-basis-row">
-          <button class="basis-btn on" onclick="setBasis('depart',this)">✈ 출발지</button>
-          <button class="basis-btn" onclick="setBasis('arrive',this)">🏨 도착지</button>
-          <span class="basis-note" id="basisNote"></span>
-        </div>
-
-        <div class="field" style="margin-bottom:10px"><label>인원</label>
+        <div class="field" style="margin-bottom:10px;margin-top:8px"><label>인원</label>
           <select id="paxRange">
             <option>성인 1명</option><option>성인 2명</option>
             <option>성인 3명</option><option>성인 4명</option>
           </select>
         </div>
-        <div class="range-tip">방학·휴가 등 여행 가능한 <b style="color:rgba(255,255,255,.6)">월 범위</b>를 선택하면, 해당 기간 내 원하는 박수의 항공권을 찾아드립니다.</div>
+        <div class="range-tip">① 여행 가능한 날짜 범위를 넓게 잡고, ② 실제 여행하고 싶은 박수를 입력하면 그 안에서 가능한 출발일 목록을 보여드립니다.</div>
       </div>
 
       <button class="btn-search" id="searchBtn" onclick="doSearch()">항공권 검색</button>
@@ -354,6 +372,56 @@ span.flatpickr-weekday{background:#0f1923 !important;color:rgba(59,158,255,.65);
       data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
+
+  <!-- ── Alert Form ── -->
+  <section class="sec" id="alert-section">
+    <div class="alert-icon">✈</div>
+    <p class="alert-desc">원하는 조건을 등록하면<br>맞는 항공권이 나올 때 알림을 보내드려요</p>
+
+    <form id="search-form" action="/register-alert" method="POST" class="alert-form">
+
+      <div class="field">
+        <label>여행 테마</label>
+        <select name="theme">
+          <option value="">선택</option>
+          <option value="healing">힐링 / 온천</option>
+          <option value="shopping">쇼핑 / 도시</option>
+          <option value="activity">액티비티 / 자연</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>예상 최대 가격</label>
+        <div class="price-wrap">
+          <input type="number" name="max_price" placeholder="300000" min="0" step="10000">
+          <span class="price-unit">KRW</span>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>여행 가능 시작일</label>
+          <input type="date" name="start_date" style="background:var(--bg-field);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;padding:11px 13px;width:100%;outline:none;-webkit-appearance:none;appearance:none;color-scheme:dark">
+        </div>
+        <div class="field">
+          <label>여행 가능 종료일</label>
+          <input type="date" name="end_date" style="background:var(--bg-field);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;padding:11px 13px;width:100%;outline:none;-webkit-appearance:none;appearance:none;color-scheme:dark">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>희망 박수</label>
+        <div class="nights-wrap">
+          <input type="number" name="duration_nights" min="1" max="30" value="3">
+          <span class="nights-unit">박</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-alert">🔔 알림 등록하기</button>
+    </form>
+  </section>
+
+  <div class="divider" style="margin-top:28px"></div>
 
   <!-- ── Price Trends ── -->
   <section class="sec" id="trends">
@@ -539,33 +607,23 @@ const today=new Date().toISOString().split('T')[0];
 const nxtDate=new Date();nxtDate.setDate(nxtDate.getDate()+7);
 const nxtStr=nxtDate.toISOString().split('T')[0];
 
-// Flatpickr 초기화 (날짜 지정 모드만)
+// Flatpickr 초기화
+let fpRangeEnd;
 if(typeof flatpickr!=='undefined'){
   flatpickr.localize(flatpickr.l10ns.ko);
   const fp={dateFormat:'Y-m-d',minDate:'today',nextArrow:'›',prevArrow:'‹'};
   flatpickr('#dep',{...fp,defaultDate:today});
   flatpickr('#ret',{...fp,defaultDate:nxtStr});
+  fpRangeEnd=flatpickr('#rangeEnd',{...fp});
+  flatpickr('#rangeStart',{...fp,onChange:function(sel){
+    if(sel[0]&&fpRangeEnd) fpRangeEnd.set('minDate',sel[0]);
+  }});
 }
 
-// 월 드롭다운 생성 (현재 월부터 18개월)
-(function initMonthSelects(){
-  const now=new Date();
-  let html='';
-  for(let i=0;i<18;i++){
-    const d=new Date(now.getFullYear(),now.getMonth()+i,1);
-    const val=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
-    const label=`${d.getFullYear()}년 ${d.getMonth()+1}월`;
-    html+=`<option value="${val}">${label}</option>`;
-  }
-  const ms=document.getElementById('monthStart');
-  const me=document.getElementById('monthEnd');
-  if(ms) ms.innerHTML=html;
-  if(me){
-    me.innerHTML=html;
-    // 기본값: 종료 월을 시작 월 + 2로 설정
-    if(me.options.length>2) me.selectedIndex=2;
-  }
-})();
+function parseLocalDate(str){
+  const [y,m,d]=str.split('-').map(Number);
+  return new Date(y,m-1,d);
+}
 
 let tripType='round',searchMode='exact',durNights=5,durBasis='depart';
 
@@ -585,20 +643,7 @@ function setMode(mode,el){
     mode==='range'?'날짜별 최저가 찾기':'항공권 검색';
 }
 function getDurNights(){ return Math.max(1,parseInt(document.getElementById('durInput')?.value)||durNights); }
-function getEffectiveDur(){ const n=getDurNights(); return durBasis==='arrive'?n+2:n; }
-function updateBasisNote(){
-  const el=document.getElementById('basisNote'); if(!el) return;
-  if(durBasis==='arrive'){
-    const n=getDurNights();
-    el.textContent=`현지 ${n}박 → 이동일 포함 총 ${n+2}박으로 검색`;
-  } else { el.textContent=''; }
-}
-function setBasis(b,el){
-  durBasis=b;
-  document.querySelectorAll('.basis-btn').forEach(btn=>btn.classList.remove('on'));
-  el.classList.add('on');
-  updateBasisNote();
-}
+function getEffectiveDur(){ return getDurNights(); }
 function setDur(n,el){
   durNights=n;
   const inp=document.getElementById('durInput');
@@ -641,17 +686,9 @@ function sampleDates(dates,n){
 const DAYS=['일','월','화','수','목','금','토'];
 function fmtKo(d){ return `${d.getMonth()+1}/${d.getDate()}(${DAYS[d.getDay()]})`; }
 
-function getMonthRangeLabel(){
-  const ms=document.getElementById('monthStart'),me=document.getElementById('monthEnd');
-  if(!ms||!me) return '';
-  const sOpt=ms.options[ms.selectedIndex],eOpt=me.options[me.selectedIndex];
-  return sOpt&&eOpt?` · ${sOpt.text.replace('년 ','년').replace('월','')}~${eOpt.text.replace(/\d+년 /,'')}`:'';
-}
-
 function renderDateCards(dates,fromRaw,toRaw){
   const n=getEffectiveDur();
   const display=durBasis==='arrive'?`현지 ${getDurNights()}박 (총 ${n}박)`:n+'박'+(n+1)+'일';
-  const rangeLabel=getMonthRangeLabel();
   const cards=dates.map(d=>{
     const dep=new Date(d),ret=new Date(d);ret.setDate(ret.getDate()+n);
     const ds=dep.toISOString().split('T')[0],rs=ret.toISOString().split('T')[0];
@@ -662,7 +699,7 @@ function renderDateCards(dates,fromRaw,toRaw){
     </div>`;
   }).join('');
   document.getElementById('results').innerHTML=`
-    <div class="r-header"><span class="r-title">출발 가능 날짜 ${dates.length}개</span><span class="r-count">${display}${rangeLabel}</span></div>
+    <div class="r-header"><span class="r-title">출발 가능 날짜 ${dates.length}개</span><span class="r-count">${display}</span></div>
     ${cards}
     <p style="font-size:10px;color:rgba(255,255,255,.25);text-align:center;margin-top:6px">클릭하면 Google Flights에서 해당 날짜 항공권 확인</p>`;
 }
@@ -693,17 +730,21 @@ function renderPriceDateCards(results,fromRaw,toRaw){
 }
 
 async function doRangeSearch(fromRaw,toRaw,fromCode,toCode){
-  const ms=document.getElementById('monthStart').value; // "2026-06"
-  const me=document.getElementById('monthEnd').value;   // "2026-08"
-  if(!ms||!me){alert('시작 월과 종료 월을 선택해주세요.');return;}
-  const[sy,smn]=ms.split('-').map(Number);
-  const[ey,emn]=me.split('-').map(Number);
-  if(sy>ey||(sy===ey&&smn>emn)){alert('종료 월이 시작 월과 같거나 늦어야 합니다.');return;}
-  const start=new Date(sy,smn-1,1);          // 시작 월 1일
-  const end=new Date(ey,emn,0);              // 종료 월 말일
+  const startVal=document.getElementById('rangeStart').value;
+  const endVal=document.getElementById('rangeEnd').value;
+  if(!startVal||!endVal){alert('출발 가능 시작일과 복귀 마감일을 선택해주세요.');return;}
+  const n=getEffectiveDur();
+  const start=parseLocalDate(startVal);
+  const end=parseLocalDate(endVal);
+  const lastDep=new Date(end);
+  lastDep.setDate(lastDep.getDate()-n);
+  if(start>lastDep){
+    alert(`여행 기간(${n}박)이 설정한 날짜 범위보다 깁니다.\n날짜 범위를 늘리거나 박수를 줄여주세요.`);
+    return;
+  }
   const all=[];let d=new Date(start);
-  while(d<=end&&all.length<90){all.push(new Date(d));d.setDate(d.getDate()+1);}
-  const sampled=sampleDates(all,Math.min(10,all.length));
+  while(d<=lastDep&&all.length<90){all.push(new Date(d));d.setDate(d.getDate()+1);}
+  const sampled=sampleDates(all,Math.min(20,all.length));
   const el=document.getElementById('results');
   el.style.display='block';
   el.scrollIntoView({behavior:'smooth',block:'start'});
